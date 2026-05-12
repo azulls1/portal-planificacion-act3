@@ -1,0 +1,99 @@
+{
+  "command": "/nxt-ai.spec",
+  "feature_id": "FEAT-001-portal-actividad3",
+  "level": "L2",
+  "agent": "strategist",
+  "mode": "greenfield",
+  "timestamp": "2026-05-11T00:00:00Z",
+  "did": [
+    "Leí mexmiart03_act3_individual.docx (parráfos + tablas + imagen embebida Figura 1)",
+    "Extraje topología completa del problema del rover desde la Figura 1",
+    "Mapeé los 4 criterios de la rúbrica a entregables físicos y artefactos del portal",
+    "Redacté constitution.md con 10 artículos rectores",
+    "Redacté steering/product.md, tech-stack.md, structure.md",
+    "Redacté feature-spec.md con 7 user stories y 23 criterios EARS",
+    "Redacté personas.md con 4 personas (profesor, integrante, revisor externo, operador) + anti-personas"
+  ],
+  "found": {
+    "rover_topology": {
+      "nodes": ["L1", "L2", "L3", "L4", "L5"],
+      "edges": [
+        {"from": "L1", "to": "L3", "directional": false},
+        {"from": "L3", "to": "L2", "directional": true},
+        {"from": "L2", "to": "L4", "directional": true},
+        {"from": "L3", "to": "L4", "directional": false},
+        {"from": "L4", "to": "L5", "directional": false}
+      ],
+      "initial_rover_position": "L4",
+      "minerals": [
+        {"name": "mineral_1", "at": "L1"},
+        {"name": "mineral_2", "at": "L2"}
+      ],
+      "laboratory": "L5"
+    },
+    "deliverables_required": {
+      "report": {"format": "APA", "max_pages": 12, "files": 1},
+      "domain_pddl": 1,
+      "problem_pddl": 3,
+      "screenshots": "required (cantidad no especificada)"
+    },
+    "rubric_max_points": 10.0,
+    "rubric_projected_realistic": 9.4
+  },
+  "changed": [
+    "Created: analisis de requerimientos/00-RESUMEN-EJECUTIVO.md",
+    "Created: analisis de requerimientos/01-descomposicion-requerimientos.md",
+    "Created: analisis de requerimientos/02-matriz-rubrica-entregables.md",
+    "Created: analisis de requerimientos/.nxt-ai/constitution.md",
+    "Created: analisis de requerimientos/.nxt-ai/steering/product.md",
+    "Created: analisis de requerimientos/.nxt-ai/steering/tech-stack.md",
+    "Created: analisis de requerimientos/.nxt-ai/steering/structure.md",
+    "Created: analisis de requerimientos/.nxt-ai/features/FEAT-001-portal-actividad3/feature-spec.md",
+    "Created: analisis de requerimientos/.nxt-ai/features/FEAT-001-portal-actividad3/personas.md"
+  ],
+  "risks": [
+    {
+      "id": "RSK-1",
+      "description": "Instalar Singularity en WSL puede fallar por features del kernel",
+      "mitigation": "Fallback a VM Ubuntu en VirtualBox / Hyper-V",
+      "severity": "medium"
+    },
+    {
+      "id": "RSK-2",
+      "description": "El planner ganador del IPC2018 puede ciclar/exceder memoria en Snake problema 1",
+      "mitigation": "Nivel 3 de criterio 1 acepta documentar el ciclado (2 pts)",
+      "severity": "medium"
+    },
+    {
+      "id": "RSK-3",
+      "description": "Reporte excede 12 páginas",
+      "mitigation": "Apéndices al portal, en PDF solo extractos clave",
+      "severity": "low"
+    },
+    {
+      "id": "RSK-4",
+      "description": "Ambigüedad individual vs equipo no resuelta",
+      "mitigation": "Resolver con profesor antes de empezar",
+      "severity": "high"
+    },
+    {
+      "id": "RSK-5",
+      "description": "Modelado del rover sin capacidad de carga produce plan trivial",
+      "mitigation": "ADR-001 fijar capacidad explícitamente",
+      "severity": "medium"
+    }
+  ],
+  "pending": [
+    "NC-1: número de integrantes del equipo",
+    "NC-2: individual vs equipo",
+    "NC-3: rover base cuenta como 1 de los 3 problem.pddl?",
+    "NC-4: capacidad del rover",
+    "NC-5: función de costo",
+    "NC-6: fecha de entrega",
+    "NC-7: restricciones adicionales de formato"
+  ],
+  "next_suggested": "/nxt-ai.clarify para resolver NC-1 a NC-7, luego /nxt-ai.plan",
+  "blockers": [
+    "NC-1 y NC-2 son bloqueadores duros: definen alcance del criterio 3 y reparto de responsabilidades"
+  ]
+}

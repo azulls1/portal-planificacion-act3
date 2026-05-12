@@ -1,0 +1,18 @@
+{
+  "name": "Portal Actividad 3 — Planificación PDDL",
+  "short_name": "Portal Act3",
+  "description": "Entregable digital de la Actividad 3 del curso Razonamiento y planificación automática",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F8F7",
+  "theme_color": "#04202C",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

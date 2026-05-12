@@ -1,0 +1,83 @@
+services:
+  redis:
+    image: redis:7.2-alpine
+    container_name: portal-act3-redis
+    # Sin port mapping al host: backend y worker acceden vía la red interna
+    # (resuelve conflicto si tienes un Redis local en 6379)
+    expose:
+      - "6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: portal-act3-backend
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - PORTAL_ACT3_PDDL_DIR=/entregables/pddl
+      - PORTAL_ACT3_PLANS_DIR=/entregables/planes
+    volumes:
+      - ./apps/backend/src:/app/src
+      - ./entregables:/entregables
+    ports:
+      - "8001:8000"
+    command:
+      [
+        "uvicorn",
+        "portal_act3.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000",
+        "--reload",
+      ]
+
+  worker:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: portal-act3-worker
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - PORTAL_ACT3_PDDL_DIR=/entregables/pddl
+      - PORTAL_ACT3_PLANS_DIR=/entregables/planes
+    volumes:
+      - ./apps/backend/src:/app/src
+      - ./entregables:/entregables
+    command:
+      [
+        "celery",
+        "-A",
+        "portal_act3.tasks.celery_app.celery_app",
+        "worker",
+        "--loglevel=info",
+        "-P",
+        "solo",
+      ]
+
+  # frontend dev-server local — opcional vía Docker; lo común es `npm start` en host
+  frontend:
+    image: node:22-alpine
+    container_name: portal-act3-frontend
+    working_dir: /app
+    volumes:
+      - ./apps/frontend:/app
+    ports:
+      - "4200:4200"
+    command: sh -c "npm install && npm start -- --host 0.0.0.0"
+    profiles: ["frontend"]

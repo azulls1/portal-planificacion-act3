@@ -1,0 +1,1052 @@
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+International Planning Competition 2018 Classical Tracks
+A´lvaro Torralba1 Florian Pommerening2
+1Saarland University 2University of Basel, Switzerland
+June 29, 2018
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+About IPC 2018
+
+About IPC 2018
+
+Participants
+
+Domains
+
+New at IPC 2018
+
+Tracks
+
+Dissemination
+
+Thanks
+
+PDDL features no new PDDL feature this time but . . . . . . stronger focus on conditional effects and grounding In 2 domains, we used two different formulations using the tool by Bustos et al., (2014)
+Planner Submission container technology: Singularity containerized versions of all planners available
+Cost-Bounded Track
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Changes from IPC 2011/2014
+
+Dissemination
+
+Thanks
+
+Different scores in the satisficing and agile tracks: Solution quality compared against best known plan (as in IPC 2008) Time compared against 1s
+Score of a participant is independent on other participants Best planner in an instance may get less than 1 point
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Computed lower/upper bounds on all instances
+
+Thanks
+
+Computed using different methods: Competitors Baselines Domain-dependent solvers Writing plans by hand
+We have upper bounds for all but two instances
+No unsolvable instances (the generator ensures that those two instances have a solution)
+Tried to close the gap as much as possible
+Tighter upper bounds for the SAT score
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Bug fixing policy
+
+Tracks
+
+Dissemination
+
+Thanks
+
+The IPC should be about comparing algorithms, not implementations
+We tried to eliminate all bugs but: of course, this is impossible and probably there are some bugs that we did not detect it is difficult to draw the line between bug and bad parameter configuration on a domain
+Disclaimer We are aware that this influences the results of the competition.
+
+About IPC 2018
+
+Participants
+
+Thanks
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+We want to thank the ICAPS committee and ICAPS 2018 for sponsoring the prize money all domain submitters for their hard work on the domains our student assistant Augusto Blaas Corr^ea for his help in running the experiments the sciCORE team at Uni Basel for keeping the grid running the ERGO project for their funding and of course . . . all of the participants
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Participants
+
+About IPC 2018
+
+Participants
+
+Statistics
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+35 planners submitted, (+3 withdrawn) two variants of each planner allowed most planners participated in multiple tracks
+73 entries across all tracks 21 teams 38 authors 17 affiliations 12 countries
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Techniques for optimal planning
+
+Dissemination
+
+Thanks
+
+Landmark heuristics Metis1/2
+Abstraction heuristics FDMS1, FDMS2 (merge&shrink) Planning-PDBs, Complementary1/2 (symbolic PDBs) Scorpion (PDBs, Cartesian abstractions + cost partitioning) maplan-2 (merge without shrink)
+Critical path heuristics maplan-1
+Symbolic search Symple-1, Symple-2
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Techniques for satisficing planning
+
+Dissemination
+
+Thanks
+
+SAT planner freelunch-{doubly-relaxed,madagascar}
+Delete-relaxation heuristics alien (FF) mercury2014 (Red-black) Cerberus, Cerberus-gl (Red-black + novelty) MERWIN (Red-black + novelty) OLCFF (CFF + novelty)
+Best-first width search LAPKT-POLYNOMIAL-BFWS, LAPKT-DUAL-BFWS, LAPKT-BFWS-Preference, LAPKT-DFS+ fs-blind, fs-sim
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Other Techniques
+
+Tracks
+
+Large-scale portfolios IBaCoP-2018, IBaCoP2-2018 Fast Downward Stone Soup 2018 Fast Downward Remix Delfi1, Delfi2 MSP Saarplan
+Decoupled search DecStar
+
+Dissemination
+
+Thanks
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Domains
+
+About IPC 2018
+
+Participants
+
+New domains
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Competition Domains 11 new domains 5 from planning applications no domains from previous IPCs not all domains used in all tracks Optimal/Satisficing/Agile: 10 domains Cost-bounded: 8 domains
+Domain Submissions "Thank you!" to everyone who submitted a domain more submissions than we could handle
+
+About IPC 2018
+
+Participants
+
+Agricola
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Submitted by: Tom´as de la Rosa, Universidad Carlos III de Madrid
+
+Loosely based on the board game "Agricola". dead-ends
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Caldera
+
+Submitted by: Andy Applebaum, Doug Miller, and Blake Strom, MITRE.
+
+Cybersecurity domain based on a real-world application. Delete-free domain Quantified Conditional Effects Hard to ground
+
+About IPC 2018
+
+Participants
+
+Data Network
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Submitted by: Submitted by: Manuel Heusner, Basel University
+
+Process and send data accross a computer network. Our Logistics variant
+
+About IPC 2018
+
+Participants
+
+Flash Fill
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Submitted by: Javier Segovia, Universitat Pompeu Fabra
+
+Excel Flashfill feature modelled as a classical planning problem by using the planning programs compilation by Segovia et al.
+Quantified conditional effects (hard to handle)
+
+About IPC 2018
+
+Participants
+
+Nurikabe
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+325
+
+325
+
+Version of Floortile where the robot must decide the painting pattern
+Quantified conditional effects (easy to handle)
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Organic Synthesis
+
+Submitted by: Hadi Qovaizi, Arman Masoumi, Anne Johnson, Russell Viirre, Andrew McWilliams, and Mikhail Soutchanski, Ryerson University
+
+Find a sequence of reactions that produces the target molecule from given initial molecules. The instances are based on real exam questions.
+Hard to ground
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Petri Net Alignment
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Submitted by: Massimiliano de Leoni and Andrea Marrella, Eindhoven University of Technology
+
+Align the execution of a petri net to a sequence of events 0-cost actions
+
+About IPC 2018
+
+Participants
+
+Settlers
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Submitted by: Marcel Steinmetz, Saarland University
+
+Resource-constrained version of the numeric domain Settlers Quantified conditional effects (hard to compile away)
+
+About IPC 2018
+Snake
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Version of the Snake game where the location where apples will spawn is known in advance.
+Many facts (snake representation)
+
+About IPC 2018
+Spider
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Variant of the Spider card game where all cards are faced up from the beginning.
+Conditional effects 0-cost actions
+
+About IPC 2018
+
+Participants
+
+Termes
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Submitted by: Sven Koenig and Satish Kumar
+
+Single agent variant of Harvard TERMES robots, based on termites.
+Long plans
+
+About IPC 2018
+
+Participants
+
+Overview
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Agricola Caldera Data Network Flashfill Nurikabe Organic Synthesis Petri Net Alignment Settlers Snake Spider Termes SUM
+
+C. Eff
+
+!
+
+!!
+
+!!
+
+5
+
+0 cost
+
+2
+
+costs
+
+?
+
+?
+
+4-6
+
+4 domains from "applications" (not developed for the IPC): Caldera, Flashfill, Organic Synthesis, Petri-net Alignment
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Outstanding Domain Submission Award
+
+Dissemination
+
+Thanks
+
+Outstanding Domain Submission Award
+Hadi Qovaizi, Arman Masoumi, Anne Johnson, Russell Viirre, Andrew McWilliams, and Mikhail Soutchanski for the domain submission of "Organic Synthesis"
+Collaborated with domain experts in Biology and Chemistry Manually crafted instances and reference plans
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Tracks
+
+About IPC 2018
+
+Participants
+
+Optimal Track
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Goal: Find an optimal plan Metric: number of plans solved
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Optimal Track Awards
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Winner
+Michael Katz, Shirin Sohrabi, Horst Samulowitz, and Silvan Sievers with
+"Delfi 1"
+
+Runner-Up
+Santiago Franco, Levi H. S. Lelis, Mike W. Barley, Stefan Edelkamp, Mois´es Mart´inez, and Ionut Moraru
+with "Complementary"
+
+Complementary1 and Complementary2 achieved the same coverage but with strengths in different domains
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Recognition of Good Performance
+
+Dissemination
+
+Thanks
+
+Recognition
+Best coverage in 5 out of 10 domains in the optimal track "Scorpion"
+
+agricola caldera data-net. nurikabe org.-syn. p.-net align. settlers snake spider termes SUM
+
+Coverage
+
+Delfi1
+
+12 13 13 12 13 20 9 11 11 12 126
+
+Complementary2 6 12 12 12 13 18 9 14 12 16 124
+
+Complementary1 10 11 14 13 13 17 8 11 11 16 124
+
+Planning-PDBs
+
+6 12 14 11 13 18 8 13 11 16 122
+
+symb. Bi-dir.
+
+15 10 13 11 13 19 8 4 7 18 118
+
+Scorpion
+
+2 12 14 13 13 0 10 14 17 14 109
+
+Delfi2
+
+11 11 13 11 13 9 8 7 7 15 105
+
+FDMS2
+
+14 12 9 12 13 2 8 11 11 12 104
+
+FDMS1
+
+9 12 10 12 13 2 9 11 11 12 101
+
+DecStar
+
+0 8 14 11 14 8 8 11 13 12 99
+
+Metis1
+
+0 13 12 12 14 9 9 7 11 6 93
+
+MSP
+
+7 8 13 8 12 10 0 11 6 16 91
+
+Metis2
+
+0 15 12 12 14 9 0 7 12 6 87
+
+Blind
+
+0 8 7 11 10 7 8 12 11 10 84
+
+Symple-2
+
+1 8 9 7 13 2 0 0 5 13 58
+
+Symple-1
+
+0 8 9 8 13 2 0 0 4 13 57
+
+maplan-2
+
+2 2 9 0 6 0 0 14 1 12 46
+
+maplan-1
+
+0 2 12 0 6 0 0 7 10 6 43
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Satisficing Track
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Goal: Find a plan with high quality Metric: C/C
+same as in 2008 but different from 2011, 2014 reference plans by many different means
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Satisficing Track Awards
+
+Dissemination
+
+Thanks
+
+Winners
+Jendrik Seipp and Gabriele Ro¨ger with
+"Fast Downward Stone Soup 2018"
+
+Jendrik Seipp with
+"Fast Downward Remix"
+
+Both planners are portfolios based on the same components and performed comparatively.
+Runner-Up
+Nir Lipovetzky, Miquel Ram´irez, Guillem Franc`es, and Hector Geffner with
+"LAPKT-DUAL-BFWS"
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Recognition of Good Performance
+
+Dissemination
+
+Thanks
+
+Recognition
+Best coverage in satisficing and agile track "Saarplan"
+
+agricola caldera data-net. flashfill nurikabe org.-syn. settlers snake spider termes SUM
+
+Sat score
+
+Stone Soup 13 14 10 13 18 9 16 7 10 8 123
+
+Remix
+
+13 14 10 12 18 9 16 7 10 6 120
+
+DUAL-BFWS 12 17 11 16 14 11 6 9 12 5 119
+
+Saarplan
+
+14 11 12 13 16 11 9 8 10 7 116
+
+DecStar
+
+12 13 10 13 12 9 15 4 12 6 111
+
+Cerberus
+
+10 10 11 9 15 12 9 5 13 7 108
+
+LAMA 2011
+
+9 13 7 13 10 12 15 3 13 7 107
+
+BFWS-Pref. 11 15 8 11 12 7 8 15 10 5 106
+
+Cerberus-gl 10 10 11 9 15 12 9 5 14 6 106
+
+OLCFF
+
+13 11 12 0 17 9 0 7 11 7 92
+
+POLY-BFWS 13 17 11 8 10 5 9 2 8 2 90
+
+IBaCoP
+
+10 5 14 0 6 8 0 8 8 10 73
+
+IBaCoP2
+
+11 6 11 0 7 8 0 7 7 7 66
+
+MERWIN
+
+10 0 10 0 5 12 0 4 11 7 62
+
+mercury
+
+12 0 8 0 5 11 0 3 12 7 61
+
+DFS+
+
+10 12 6 1 5 5 7 4 7 0 60
+
+fs-sim
+
+11 6 5 0 10 4 0 7 4 3 53
+
+fs-blind
+
+3 6 5 0 12 4 0 7 5 7 50
+
+freelunch-dr
+
+8 1 0 0 0 6 0 5 0 0 22
+
+freelunch-ma 0 2 2 0 3 8 0 1 0 0 16
+
+Symple-2
+
+1 2 0 0 2 5 0 0 0 1 11
+
+Symple-1
+
+1 2 0 0 2 5 0 0 0 1 11
+
+alien
+
+4010040000 9
+
+About IPC 2018
+
+Participants
+
+Agile Track
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Goal: Find a plan quickly Metric: 1 - log(t)/ log(300), or 1 if solved in first second
+different from 2014 independent of reference time stronger emphasis on solving in short time Instance selection: Same instances as in satisficing track
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Agile Track Awards
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Winner
+Nir Lipovetzky, Miquel Ram´irez, Guillem Franc`es, and Hector Geffner with
+"LAPKT-BFWS-Preference"
+Runner-Up
+Maximilian Fickert, Daniel Gnad, Patrick Speicher, and Jo¨rg Hoffmann with "Saarplan"
+
+agricola caldera data-net. flashfill nurikabe org.-syn. settlers snake spider termes SUM
+
+Agl score
+
+BFWS-Pref.
+
+2.3 6.9 6.1 8.8 7.5 3.9 2.4 8.9 5.6 3.8 56.1
+
+LAMA 2011
+
+0.8 6.6 7.6 7.4 6.3 2.9 7.1 2.0 4.6 7.6 52.7
+
+Saarplan
+
+1.4 6.6 9.5 3.4 7.5 1.9 3.8 3.8 2.0 6.3 46.3
+
+DUAL-BFWS 1.6 7.6 4.4 8.0 7.1 4.8 1.7 3.8 4.2 3.1 46.2
+
+Remix
+
+1.2 6.1 6.6 6.0 7.1 3.3 5.6 1.6 1.5 5.4 44.3
+
+POLY-BFWS 2.2 7.5 5.4 6.7 7.4 2.8 1.8 2.5 4.8 1.9 43.0
+
+DecStar
+
+1.4 5.8 5.3 3.9 6.4 2.3 5.6 1.8 2.6 6.3 41.4
+
+OLCFF
+
+1.3 6.6 9.1 0.4 7.4 1.7 0.0 3.8 1.7 6.0 38.1
+
+Cerberus
+
+0.5 5.9 4.8 2.4 7.4 1.5 1.7 2.7 0.7 6.8 34.4
+
+Cerberus-gl
+
+0.4 5.8 4.8 2.4 7.5 1.6 1.7 2.6 0.7 3.6 31.0
+
+LAPKT-DFS+ 2.4 6.6 1.9 0.3 4.1 2.0 2.6 0.7 3.5 0.0 24.1
+
+mercury2014 1.1 0.0 7.1 0.0 1.1 2.5 0.0 1.9 3.4 6.4 23.5
+
+fs-blind
+
+0.5 3.4 2.4 0.0 7.4 0.2 0.0 4.7 1.5 3.4 23.5
+
+fs-sim
+
+2.5 3.3 3.2 0.0 6.5 0.4 0.0 2.7 1.1 3.0 22.8
+
+MERWIN
+
+0.9 0.0 7.0 0.0 1.1 2.5 0.0 1.8 2.8 5.7 21.7
+
+freelunch-dr
+
+1.1 0.9 3.4 0.0 0.0 1.2 0.0 10.8 1.8 0.0 19.2
+
+IBaCoP
+
+0.3 0.4 1.5 0.0 0.1 1.0 0.0 0.4 0.0 0.8 4.5
+
+freelunch-ma 0.0 1.4 0.8 0.0 0.6 1.0 0.0 0.0 0.0 0.0 3.9
+
+alien
+
+0.6 0.0 1.1 0.0 0.0 1.8 0.0 0.0 0.0 0.0 3.5
+
+IBaCoP2
+
+0.3 0.1 1.1 0.0 0.0 0.5 0.0 0.4 0.0 0.6 3.0
+
+Symple-2
+
+0.0 0.1 0.0 0.0 0.4 1.7 0.0 0.0 0.0 0.0 2.1
+
+Symple-1
+
+0.0 0.1 0.0 0.0 0.5 1.4 0.0 0.0 0.0 0.0 2.1
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Cost-bounded Track
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Goal: Find a plan with costs below given bound
+Metric: number of plans solved Instance selection:
+mix of instances from satisficing and optimal track each instance with two bounds (tight, loose)
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Cost-Bounded Track Awards
+
+Dissemination
+
+Thanks
+
+Winner
+Jendrik Seipp and Gabriele R¨oger with
+"Fast Downward Stone Soup 2018"
+
+Jendrik Seipp with
+"Fast Downward Remix"
+
+Both planners are portfolios based on the same components and performed comparatively.
+Runner-Up
+Maximilian Fickert, Daniel Gnad, Patrick Speicher, and Jo¨rg Hoffmann with "Saarplan"
+
+Coverage
+Stone Soup Remix Saarplan DUAL-BFWS LAMA 2011 Complementary2 Cerberus-gl Cerberus Planning-PDBs DecStar Complementary1 OLCFF MERWIN Symple-2 Symple-1
+
+agricola caldera data-net. nurikabe settlers snake spider termes SUM
+
+8 16 8 15 14 9 9 8 87 8 13 10 14 14 10 10 7 86 9 12 7 11 10 9 7 8 73 6 17 9 6 7 10 6 3 64 8 9 9 7 10 5 6 8 62 8 10 3 10 5 10 9 6 61 3 8 7 11 9 8 7 5 58 2 8 7 11 9 8 7 5 57 5 7 3 9 5 7 10 6 52 5 8 2 10 8 5 8 5 51 6 8 2 12 4 5 8 6 51 5 12 4 12 0 10 5 1 49 8 0 9 4 0 6 4 3 34 0 2 0 2 0 0 2 4 10 0 2 0 2 0 0 2 4 10
+
+About IPC 2018
+
+Participants
+
+Other Tracks
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Multi-core track: Canceled for lack of participation
+Pure numeric: Many teams expressed interest, but we don't have the expertise to organize it
+Unsolvability, multi-agent, state-dependent costs, . . .
+Interested in a track? Organize it next year!
+Don't wait for the next "classical" track.
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Dissemination
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination of results
+
+Dissemination
+
+Thanks
+
+Experimental Results logs and parsed properties available online
+Domains instances and reference plans available on bitbucket also available on planning.domains
+Planners repositories available on bitbucket singularity recipes contained in repositories planner abstracts available online
+All linked on ipc2018-classical.bitbucket.io
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Results Analysis
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Reminder planner abstracts can be extended with results analysis. optional but highly recommended deadline: end of July
+IPC Workshop on ICAPS 2019? Analysis of the results Analysis of the domains Suggestions for future IPCs (e.g. position papers) Call for interest
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Results Analysis
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Reminder planner abstracts can be extended with results analysis. optional but highly recommended deadline: end of July
+IPC Workshop on ICAPS 2019? Analysis of the results Analysis of the domains Suggestions for future IPCs (e.g. position papers) Call for interest
+
+About IPC 2018
+
+Participants
+
+Domains
+
+Tracks
+
+Dissemination
+
+Thanks
+
+Thank You!
+
+

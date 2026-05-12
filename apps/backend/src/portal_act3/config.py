@@ -1,0 +1,43 @@
+"""Configuración tipada del backend. Carga desde .env vía pydantic-settings."""
+
+from functools import lru_cache
+from pathlib import Path
+
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
+    app_name: str = "portal-act3"
+    app_env: str = Field(default="local", description="local | staging | prod")
+    debug: bool = True
+
+    cors_origins: list[str] = Field(
+        default_factory=lambda: ["http://localhost:4200", "http://127.0.0.1:4200"]
+    )
+
+    redis_url: str = "redis://localhost:6379/0"
+    celery_broker_url: str = "redis://localhost:6379/0"
+    celery_result_backend: str = "redis://localhost:6379/1"
+
+    supabase_url: str = ""
+    supabase_anon_key: str = ""
+    supabase_service_role_key: str = ""
+
+    pddl_dir: Path = Path(__file__).resolve().parents[3].parent / "entregables" / "pddl"
+    plans_dir: Path = Path(__file__).resolve().parents[3].parent / "entregables" / "planes"
+
+    singularity_image_path: Path | None = None
+    singularity_planner_name: str = "delfi"
+    plan_timeout_seconds: int = 1800
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()

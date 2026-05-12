@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Node / Angular
+node_modules/
+apps/frontend/dist/
+apps/frontend/.angular/
+apps/frontend/src/styles.css
+*.tsbuildinfo
+
+# Env
+.env
+.env.local
+*.env
+
+# Singularity / Apptainer images (pesadas, 500MB+)
+*.sif
+*.img
+infra/singularity/_build-from-wsl.sh.log
+infra/singularity/_diag.sh
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Entregables: los planes y capturas SÍ se versionan (son la evidencia entregable);
+# solo se ignora el PDF exportado (se regenera desde reporte.md).
+entregables/reporte/*.pdf
+!entregables/**/README.md

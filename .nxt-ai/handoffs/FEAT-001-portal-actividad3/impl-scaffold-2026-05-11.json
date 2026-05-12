@@ -1,0 +1,81 @@
+{
+  "command": "/nxt-ai.impl (scaffold completo)",
+  "feature_id": "FEAT-001-portal-actividad3",
+  "agent": "builder",
+  "mode": "IMPL",
+  "timestamp": "2026-05-11T00:00:00Z",
+  "did": [
+    "Creé estructura del monorepo en portal-planificacion-act3/",
+    "Copié artefactos .nxt-ai/ desde 'analisis de requerimientos/'",
+    "Vendoreé Forest DS en apps/frontend/src/forest/",
+    "Modelé domain.pddl rover-mineral-transport (tipos, predicados, 3 acciones, action-costs)",
+    "Modelé problem-1.pddl con topología L1-L5 exacta de Figura 1",
+    "Creé problem-2.pddl y problem-3.pddl como placeholders para integrantes",
+    "Scaffold backend FastAPI: main, config, 3 routers (plan_runs, pddl_files, scenarios)",
+    "Implementé pddl_validator.py con check_balanced_parens, validate_domain, validate_problem, parse_plan, sha256_lf",
+    "Implementé singularity_runner.py para invocar el planner contenedorizado",
+    "Implementé supabase_client.py con modo degraded fallback",
+    "Configuré Celery app con Redis broker + 2da DB como result backend",
+    "Creé tarea run_planner_task que ejecuta planner y devuelve plan parseado",
+    "Tests pytest del validator PDDL (6 tests)",
+    "Scaffold frontend Angular 19 standalone: app.component (navbar + footer), routing lazy",
+    "ApiService para todos los endpoints del backend",
+    "Componentes feature: home (rúbrica + entregables), snake (3 tabs), rover (5 tabs + SVG grafo), scenarios (lista + detalle), report",
+    "rover-graph.component.ts con SVG estático fiel a Figura 1 (L1-L5, aristas dir/bidir)",
+    "Docker Compose con redis, backend, worker (perfil frontend opcional)",
+    "Migración SQL inicial Supabase: 4 tablas + RLS + tipo enum plan_run_status",
+    "Scripts pull-planner.sh, READMEs por carpeta de infra/",
+    "README raíz con quickstart 5 pasos",
+    "docs/00-getting-started.md (onboarding equipo)",
+    "docs/01-pddl-modeling-decisions.md (ADR-001 a 006 documentados)"
+  ],
+  "found": {
+    "files_created": 43,
+    "lines_of_code_approx": 3200,
+    "test_count": 6,
+    "pddl_files": 4,
+    "angular_components": 7,
+    "fastapi_routers": 3,
+    "celery_tasks": 1,
+    "adrs_documented": 5
+  },
+  "changed": [
+    "portal-planificacion-act3/ — proyecto nuevo completo"
+  ],
+  "risks": [
+    {
+      "id": "RSK-IMPL-1",
+      "description": "URL de descarga del planner en pull-planner.sh es PLACEHOLDER",
+      "mitigation": "Identificar URL exacta tras leer slides Results IPC2018; actualizar script",
+      "severity": "medium"
+    },
+    {
+      "id": "RSK-IMPL-2",
+      "description": "problem-2.pddl y problem-3.pddl son placeholders genéricos",
+      "mitigation": "Cada integrante personaliza su escenario; flag en código",
+      "severity": "low"
+    },
+    {
+      "id": "RSK-IMPL-3",
+      "description": "Tests no se han ejecutado en este entorno; pueden fallar si dependencias no se instalan",
+      "mitigation": "Ejecutar pytest tras `pip install -e .[dev]`",
+      "severity": "low"
+    },
+    {
+      "id": "RSK-IMPL-4",
+      "description": "Angular 19 standalone sintaxis nueva (@if/@for/@switch) requiere TS 5.6+",
+      "mitigation": "package.json pinneado a typescript 5.6; npm install debería bajar correcto",
+      "severity": "low"
+    }
+  ],
+  "pending": [
+    "Ejecutar `npm install` y `pip install -e .[dev]` para verificar instalación",
+    "Identificar planner ganador exacto del IPC2018 optimal track (slides Results)",
+    "Llenar problem-2.pddl y problem-3.pddl con escenarios reales por integrante",
+    "Generar reporte APA real (PDF) y subir a entregables/reporte/",
+    "Capturas de pantalla en entregables/capturas/",
+    "Resolver NC-1 a NC-7 (ambigüedades del feature-spec §7)"
+  ],
+  "next_suggested": "/nxt-ai.verify para validación blind antes de continuar con C1 (Snake)",
+  "blockers": []
+}

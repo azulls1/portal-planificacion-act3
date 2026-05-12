@@ -1,0 +1,22 @@
+@import "tailwindcss" source(none);
+@source "./**/*.{html,ts,js}";
+@import "./forest/forest.css";
+
+/* Tailwind v4 input — compilado externamente por la CLI @tailwindcss/cli
+   y emitido como `styles.css` (que es lo que Angular carga).
+
+   El Application Builder de Angular 19 no aplica reliably el plugin
+   @tailwindcss/postcss sobre styles.css. Workaround: compilar Tailwind
+   antes/durante el dev-server con `npm start` (usa concurrently para
+   correr tailwind --watch en paralelo con ng serve).
+
+   - `source(none)` desactiva auto-detection (que falla en este pipeline).
+   - `@source "./**"` apunta a templates inline en .ts del directorio src.
+*/
+
+/* Reglas no-negociables heredadas del Forest DS:
+   - Light mode ONLY
+   - Fondo de pagina: bg-gray-50 (#F7F8F7)
+   - Fuente minima: 12px (text-xs)
+   - Forest #04202C primario
+*/

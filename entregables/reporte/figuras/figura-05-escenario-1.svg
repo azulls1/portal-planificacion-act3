@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 620" font-family="Helvetica, Arial, sans-serif" font-size="16">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="400" y="32" text-anchor="middle" font-size="18" font-weight="bold">Figura 5. Escenario alternativo 1 (problem-2.pddl)</text>
+  <text x="400" y="56" text-anchor="middle" font-size="13" fill="#555">Tres minerales con acceso condicionado · L5→L6 unidireccional fuerza visitar el laboratorio antes de M3</text>
+
+  <!-- Aristas heredadas del base -->
+  <line x1="160" y1="200" x2="320" y2="130" stroke="#222" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <line x1="380" y1="130" x2="540" y2="200" stroke="#222" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="560" y1="240" x2="400" y2="340" stroke="#222" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="350" y1="160" x2="350" y2="320" stroke="#222" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <line x1="320" y1="380" x2="200" y2="490" stroke="#222" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+
+  <!-- Aristas nuevas del escenario -->
+  <!-- L4 <-> L6 (bidir, camino de regreso) - dibujada a la derecha -->
+  <line x1="380" y1="380" x2="540" y2="490" stroke="#1f77b4" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)" stroke-dasharray="0"/>
+  <!-- L5 -> L6 (unidir, RESTRICCION DEL ESCENARIO) -->
+  <line x1="240" y1="510" x2="500" y2="510" stroke="#d62728" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Nodos -->
+  <circle cx="130" cy="220" r="40" fill="#fff3cd" stroke="#222" stroke-width="2"/>
+  <text x="130" y="217" text-anchor="middle" font-weight="bold">L1</text>
+  <text x="130" y="237" text-anchor="middle" font-size="12" fill="#8a6d3b">M1</text>
+
+  <circle cx="570" cy="220" r="40" fill="#d4edda" stroke="#222" stroke-width="2"/>
+  <text x="570" y="217" text-anchor="middle" font-weight="bold">L2</text>
+  <text x="570" y="237" text-anchor="middle" font-size="12" fill="#155724">M2</text>
+
+  <circle cx="350" cy="130" r="35" fill="#ffffff" stroke="#222" stroke-width="2"/>
+  <text x="350" y="135" text-anchor="middle" font-weight="bold">L3</text>
+
+  <circle cx="350" cy="350" r="40" fill="#cfe2f3" stroke="#222" stroke-width="2"/>
+  <text x="350" y="347" text-anchor="middle" font-weight="bold">L4</text>
+  <text x="350" y="367" text-anchor="middle" font-size="12" fill="#1f4e79">rover</text>
+
+  <circle cx="170" cy="510" r="40" fill="#f8d7da" stroke="#222" stroke-width="2"/>
+  <text x="170" y="507" text-anchor="middle" font-weight="bold">L5</text>
+  <text x="170" y="527" text-anchor="middle" font-size="12" fill="#721c24">lab</text>
+
+  <circle cx="570" cy="510" r="40" fill="#ead1dc" stroke="#222" stroke-width="2"/>
+  <text x="570" y="507" text-anchor="middle" font-weight="bold">L6</text>
+  <text x="570" y="527" text-anchor="middle" font-size="12" fill="#741b47">M3</text>
+
+  <!-- Leyenda -->
+  <g transform="translate(40,560)" font-size="12">
+    <line x1="0" y1="0" x2="35" y2="0" stroke="#222" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="45" y="4">unidir base</text>
+    <line x1="130" y1="0" x2="165" y2="0" stroke="#222" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+    <text x="175" y="4">bidir base</text>
+    <line x1="260" y1="0" x2="295" y2="0" stroke="#1f77b4" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+    <text x="305" y="4">bidir nueva</text>
+    <line x1="400" y1="0" x2="435" y2="0" stroke="#d62728" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="445" y="4">restricción L5→L6</text>
+  </g>
+</svg>

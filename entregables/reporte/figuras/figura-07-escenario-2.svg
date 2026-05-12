@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 760" font-family="Helvetica, Arial, sans-serif" font-size="16">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="400" y="32" text-anchor="middle" font-size="18" font-weight="bold">Figura 7. Escenario alternativo 2 (problem-3.pddl)</text>
+  <text x="400" y="56" text-anchor="middle" font-size="13" fill="#555">Dos laboratorios con asignación oportunista · 4 minerales · cadena L4↔L5↔L6↔L7</text>
+
+  <!-- Aristas heredadas del base -->
+  <line x1="160" y1="200" x2="320" y2="130" stroke="#222" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <line x1="380" y1="130" x2="540" y2="200" stroke="#222" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="560" y1="240" x2="400" y2="340" stroke="#222" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="350" y1="160" x2="350" y2="320" stroke="#222" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <line x1="350" y1="380" x2="350" y2="450" stroke="#222" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+
+  <!-- Aristas nuevas -->
+  <line x1="350" y1="510" x2="350" y2="580" stroke="#1f77b4" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+  <line x1="350" y1="640" x2="350" y2="710" stroke="#1f77b4" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+
+  <!-- Nodos -->
+  <circle cx="130" cy="220" r="40" fill="#fff3cd" stroke="#222" stroke-width="2"/>
+  <text x="130" y="217" text-anchor="middle" font-weight="bold">L1</text>
+  <text x="130" y="237" text-anchor="middle" font-size="12" fill="#8a6d3b">M1</text>
+
+  <circle cx="570" cy="220" r="40" fill="#d4edda" stroke="#222" stroke-width="2"/>
+  <text x="570" y="217" text-anchor="middle" font-weight="bold">L2</text>
+  <text x="570" y="237" text-anchor="middle" font-size="12" fill="#155724">M2</text>
+
+  <circle cx="350" cy="130" r="35" fill="#ffffff" stroke="#222" stroke-width="2"/>
+  <text x="350" y="135" text-anchor="middle" font-weight="bold">L3</text>
+
+  <circle cx="350" cy="350" r="40" fill="#cfe2f3" stroke="#222" stroke-width="2"/>
+  <text x="350" y="347" text-anchor="middle" font-weight="bold">L4</text>
+  <text x="350" y="367" text-anchor="middle" font-size="12" fill="#1f4e79">rover</text>
+
+  <circle cx="350" cy="480" r="40" fill="#f8d7da" stroke="#222" stroke-width="2"/>
+  <text x="350" y="477" text-anchor="middle" font-weight="bold">L5</text>
+  <text x="350" y="497" text-anchor="middle" font-size="12" fill="#721c24">lab #1</text>
+
+  <circle cx="350" cy="610" r="40" fill="#ead1dc" stroke="#222" stroke-width="2"/>
+  <text x="350" y="607" text-anchor="middle" font-weight="bold">L6</text>
+  <text x="350" y="627" text-anchor="middle" font-size="12" fill="#741b47">M3</text>
+
+  <circle cx="350" cy="740" r="40" fill="#f8d7da" stroke="#222" stroke-width="2"/>
+  <text x="350" y="737" text-anchor="middle" font-weight="bold">L7</text>
+  <text x="350" y="757" text-anchor="middle" font-size="12" fill="#721c24">lab #2 · M4</text>
+
+  <!-- Leyenda lateral -->
+  <g transform="translate(560,440)" font-size="12">
+    <text x="0" y="-8" font-weight="bold">Hipótesis</text>
+    <text x="0" y="14">Plan óptimo: 20 acciones</text>
+    <text x="0" y="32">M3 se entrega en L7 (no L5)</text>
+    <text x="0" y="50">para encadenar con M4 in situ</text>
+    <text x="0" y="74" fill="#666">Subóptimo (M3 en L5): 22 acc.</text>
+  </g>
+</svg>

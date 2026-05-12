@@ -1,0 +1,81 @@
+{
+  "command": "/nxt-ai.verify (segundo pase tras completar)",
+  "feature_id": "FEAT-001-portal-actividad3",
+  "agent": "builder",
+  "mode": "QA",
+  "timestamp": "2026-05-11T00:00:00Z",
+  "did": [
+    "Diseñé escenarios reales para problem-2 (3 minerales, arista unidir L5->L6) y problem-3 (4 minerales, 2 labs)",
+    "Generé planes de referencia validados manualmente: 14, 19 y 20 acciones respectivamente",
+    "Implementé plan_simulator.py: parser de problem.pddl + ejecutor de acciones del dominio rover-mineral-transport",
+    "Endurecí backend: persistencia JSON local (PlanRunStore), endpoint /api/captures, /api/plans, simulación /api/plan-runs/{slug}/simulate",
+    "Solucioné deprecación datetime.utcnow() -> datetime.now(UTC) y StrEnum",
+    "Agregué 5 archivos de tests: conftest con fixtures, test_real_pddl_files, test_api_endpoints, test_plan_simulator, test_plan_run_store",
+    "55 tests verdes y ruff limpio",
+    "Frontend: agregué NotFoundComponent, TeamComponent, PlanRunnerComponent (con polling), PddlDiffComponent",
+    "Wireado el plan-runner en /rover y /escenarios/<integrante> con simulación y re-ejecución",
+    "Favicon SVG + manifest.webmanifest + theme-color",
+    "CI GitHub Actions con 3 jobs: backend (lint+tests), frontend (build), pddl (validación + simulación de los 3 planes)",
+    "pre-commit-config.yaml con ruff, prettier, conventional-commits, hooks de higiene",
+    ".editorconfig",
+    "docs/GLOSSARY.md (62 términos), docs/TROUBLESHOOTING.md (15 escenarios de error con solución)",
+    "Reporte: references.bib (10 referencias APA), reporte-template.md (estructura completa rellenable)"
+  ],
+  "metrics": {
+    "files_total": 105,
+    "backend_tests_passing": 55,
+    "backend_tests_failing": 0,
+    "ruff_errors": 0,
+    "pddl_files": 4,
+    "pddl_files_validating": 4,
+    "plan_files": 3,
+    "plan_files_validated_via_simulator": 3,
+    "frontend_components": 11,
+    "fastapi_routers": 5,
+    "celery_tasks": 1,
+    "github_workflows": 1,
+    "adrs": 5,
+    "documentation_files_in_docs": 4,
+    "team_member_placeholders": 3
+  },
+  "plan_costs_verified": {
+    "problem-1": {"expected": 14, "actual": 14, "goal_satisfied": true},
+    "problem-2": {"expected": 19, "actual": 19, "goal_satisfied": true},
+    "problem-3": {"expected": 20, "actual": 20, "goal_satisfied": true}
+  },
+  "completeness_by_criterio": {
+    "C1_snake_ipc2018": {
+      "level_achievable_now": 2,
+      "level_achievable_max": 4,
+      "blocker": "Requiere ejecución real con Singularity (manual, fuera de scope del scaffold)",
+      "portal_section": "/snake (estructura completa con placeholders)"
+    },
+    "C2_rover_pddl": {
+      "level_achievable_now": 4,
+      "blocker": null,
+      "portal_section": "/rover (PDDL real, grafo SVG, plan 14 acciones simulado y verificado)"
+    },
+    "C3_escenarios_por_integrante": {
+      "level_achievable_now": "depende del número de integrantes que personalicen",
+      "blocker": "Cada integrante debe firmar su escenario con nombre real",
+      "portal_section": "/escenarios + /escenarios/<slug>",
+      "scenarios_designed_and_validated": 2
+    },
+    "C4_apa": {
+      "level_achievable_now": "depende de redacción humana",
+      "blocker": "Reporte final lo escribe el equipo a partir del template",
+      "portal_section": "/reporte (estructura + referencias APA listas)",
+      "references_count": 10,
+      "template_ready": true
+    }
+  },
+  "remaining_human_tasks": [
+    "Identificar URL exacta del .sif del planner ganador del IPC2018 optimal track",
+    "Ejecutar Snake en Singularity y subir capturas + plan",
+    "Cada integrante: firmar problem-N.pddl con su nombre real (descomentar placeholder)",
+    "Tomar capturas de pantalla por criterio (lista en entregables/capturas/README.md)",
+    "Llenar reporte-template.md y exportar a PDF",
+    "Resolver NC-1 a NC-7 (ambigüedades del feature-spec §7)"
+  ],
+  "blockers": []
+}
