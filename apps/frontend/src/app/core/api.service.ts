@@ -113,6 +113,18 @@ export class ApiService {
   listCaptures(): Observable<CaptureInfo[]> {
     return this.http.get<CaptureInfo[]>(`${this.base}/captures`);
   }
+
+  getEntregableInfo(): Observable<EntregableInfo> {
+    return this.http.get<EntregableInfo>(`${this.base}/entregable/info`);
+  }
+}
+
+export interface EntregableInfo {
+  exists: boolean;
+  filename: string;
+  size_bytes: number | null;
+  sha256: string | null;
+  download_url: string | null;
 }
 
 export interface PlanFileInfo {

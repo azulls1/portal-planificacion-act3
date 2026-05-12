@@ -40,6 +40,7 @@ infra/singularity/_diag.sh
 Thumbs.db
 
 # Entregables: los planes y capturas SÍ se versionan (son la evidencia entregable);
-# solo se ignora el PDF exportado (se regenera desde reporte.md).
+# solo se ignora el PDF exportado y el ZIP final (ambos se regeneran).
 entregables/reporte/*.pdf
+entregables/*.zip
 !entregables/**/README.md

@@ -9,7 +9,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from portal_act3.api import captures, pddl_files, plan_runs, plans, scenarios
+from portal_act3.api import captures, entregable, pddl_files, plan_runs, plans, scenarios
 from portal_act3.config import get_settings
 
 if TYPE_CHECKING:
@@ -50,6 +50,7 @@ def create_app() -> FastAPI:
     app.include_router(plans.router, prefix="/api/plans", tags=["plans"])
     app.include_router(scenarios.router, prefix="/api/scenarios", tags=["scenarios"])
     app.include_router(captures.router, prefix="/api/captures", tags=["captures"])
+    app.include_router(entregable.router, prefix="/api/entregable", tags=["entregable"])
 
     @app.get("/health", tags=["meta"])
     async def health() -> dict[str, str]:

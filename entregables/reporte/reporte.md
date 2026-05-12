@@ -195,7 +195,7 @@ El plan obtenido por Delfi 1 tiene un costo total de 14 acciones, lo cual coinci
 
 ## 6. Escenarios alternativos del autor
 
-Atendiendo al requerimiento del criterio 3, el autor diseñó dos escenarios alternativos al problema base, cada uno orientado a evaluar una capacidad específica del planner óptimo. Ambos escenarios reutilizan el mismo `domain.pddl` sin modificación, demostrando la reusabilidad del modelo.
+Atendiendo al requerimiento explícito del enunciado de la actividad —"el estudiante propondrá un escenario diferente añadiendo otro mineral o minerales, localidades extra, restricciones en el camino e incluso un laboratorio extra"— el autor diseñó dos escenarios alternativos al problema base, cada uno orientado a evaluar una capacidad específica del planner óptimo. Esta sección forma parte de la evidencia del Criterio 2 (capacidad de abstracción en PDDL) y demuestra la reusabilidad del modelo: ambos escenarios reutilizan el mismo `domain.pddl` sin modificación.
 
 ### 6.1 Escenario alternativo 1: tres minerales con acceso condicionado
 

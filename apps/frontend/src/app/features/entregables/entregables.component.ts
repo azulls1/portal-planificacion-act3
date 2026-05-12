@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
-import { ApiService, PlanFileInfo, PddlFileInfo, CaptureInfo } from '../../core/api.service';
+import { ApiService, PlanFileInfo, PddlFileInfo, CaptureInfo, EntregableInfo } from '../../core/api.service';
 
 interface EntregableRow {
   criterio: 'C1' | 'C2' | 'C3' | 'C4' | '—';
@@ -28,6 +28,50 @@ interface EntregableRow {
     @if (loading()) {
       <div class="skeleton" style="height: 320px;"></div>
     } @else {
+      <!-- ZIP descargable -->
+      @let zip = entregableZip();
+      @if (zip) {
+        <section class="card-section mb-6 bg-fern/5 border border-fern/30">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-12 h-12 rounded-lg bg-fern text-white flex items-center justify-center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h2 class="font-display text-lg text-forest font-semibold">
+                ZIP del entregable
+              </h2>
+              <p class="text-sm text-pine mt-1">
+                Empaquetado único con los 4 PDDL del rover, los 4 planes de Delfi 1, capturas
+                por criterio, reporte y figuras.
+                @if (zip.exists) {
+                  Listo para descargar (alineado con la rúbrica de 3 criterios del profesor).
+                } @else {
+                  Aún no se ha generado. Corre
+                  <code class="font-mono text-xs">python tools/build_entregable_zip.py</code>.
+                }
+              </p>
+              @if (zip.exists) {
+                <div class="mt-3 flex flex-wrap items-center gap-3">
+                  <a
+                    [href]="zip.download_url"
+                    class="btn-primary text-sm"
+                    download
+                  >
+                    Descargar {{ zip.filename }}
+                  </a>
+                  <span class="text-xs font-mono text-moss">
+                    {{ ((zip.size_bytes ?? 0) / 1024).toFixed(1) }} KB · SHA-256
+                    {{ (zip.sha256 ?? '').substring(0, 16) }}…
+                  </span>
+                </div>
+              }
+            </div>
+          </div>
+        </section>
+      }
+
       <!-- Resumen por criterio -->
       <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         @for (k of summary(); track k.criterio) {
@@ -93,6 +137,7 @@ export class EntregablesComponent implements OnInit {
 
   protected readonly loading = signal(true);
   protected readonly rows = signal<EntregableRow[]>([]);
+  protected readonly entregableZip = signal<EntregableInfo | null>(null);
   protected readonly summary = signal<
     { criterio: string; count: number; label: string }[]
   >([]);
@@ -102,8 +147,10 @@ export class EntregablesComponent implements OnInit {
       this.api.listPlanFiles().toPromise(),
       this.api.listPddlFiles().toPromise(),
       this.api.listCaptures().toPromise().catch(() => [] as CaptureInfo[]),
+      this.api.getEntregableInfo().toPromise().catch(() => null),
     ])
-      .then(([plans, pddls, capturas]) => {
+      .then(([plans, pddls, capturas, zip]) => {
+        if (zip) this.entregableZip.set(zip);
         const all: EntregableRow[] = [];
 
         // PDDL: domain + 3 problems + snake

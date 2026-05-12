@@ -92,14 +92,15 @@ portal-planificacion-act3/
 └── docs/                      ← documentación interna
 ```
 
-## Mapeo a la rúbrica del profesor
+## Mapeo a la rúbrica del profesor (3 criterios · 10 pts totales)
 
-| Criterio | Sección del portal | Entregable físico |
-|---|---|---|
-| C1 (3 pts) — Snake IPC2018 | `/snake` | capturas + plan en `entregables/planes/snake-problem-1-plan.txt` |
-| C2 (3 pts) — Rover PDDL | `/rover` | `entregables/pddl/{domain,problem-1}.pddl` + plan |
-| C3 (2 pts) — Escenarios por integrante | `/escenarios/<integrante>` | `entregables/pddl/problem-{2,3}.pddl` + descripciones |
-| C4 (2 pts) — Reporte APA | `/reporte` | `entregables/reporte/reporte.pdf` ≤ 12 págs |
+| Criterio | Pts | Sección del portal | Entregable físico |
+|---|---|---|---|
+| **C1** Ejecución de Delfi 1 sobre Snake p01 | 3 | `/snake` | capturas + `entregables/planes/snake-problem-1-plan.txt` (24 acciones) |
+| **C2** Detección de anomalías / abstracción PDDL del rover | 5 | `/rover` + `/escenarios/*` | `entregables/pddl/{domain,problem-1,problem-2,problem-3}.pddl` + 3 planes generados |
+| **C3** Redacción, formato y citación APA | 2 | `/reporte` | `entregables/reporte/reporte.pdf` ≤ 12 págs |
+
+> Los escenarios alternativos `problem-2.pddl` y `problem-3.pddl` forman parte de la evidencia del C2 (capacidad de abstracción), no son un criterio independiente.
 
 ## Documentación interna
 
