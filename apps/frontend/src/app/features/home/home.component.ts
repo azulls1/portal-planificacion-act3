@@ -7,6 +7,8 @@ interface RubricCard {
   description: string;
   link: string;
   maxPoints: number;
+  iconPath: string;
+  accent: string; // tailwind class
 }
 
 interface DeliverableCard {
@@ -66,33 +68,89 @@ interface DeliverableCard {
         @for (item of rubric; track item.id) {
           <a
             [routerLink]="item.link"
-            class="card-feature animate-fadeInUp hover-lift"
+            class="card-feature animate-fadeInUp hover-lift relative group"
           >
-            <div class="card-feature__icon">
-              <span class="font-mono text-forest font-semibold">{{ item.id }}</span>
+            <div class="flex items-start gap-3">
+              <div
+                class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 group-hover:rotate-3"
+                [class]="item.accent"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-6 h-6"
+                  aria-hidden="true"
+                >
+                  <path [attr.d]="item.iconPath" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <span class="font-mono text-[10px] text-moss tracking-wider uppercase">
+                  Criterio {{ item.id.substring(1) }}
+                </span>
+                <h3 class="font-display text-lg font-semibold text-forest leading-tight mt-0.5">
+                  {{ item.title }}
+                </h3>
+              </div>
             </div>
-            <h3 class="font-display text-lg font-semibold text-forest mt-3">
-              {{ item.title }}
-            </h3>
-            <p class="text-sm text-pine mt-2">{{ item.description }}</p>
-            <div class="mt-4">
+            <p class="text-sm text-pine mt-3">{{ item.description }}</p>
+            <div class="mt-4 flex items-center justify-between">
               <span class="badge badge-info">{{ item.maxPoints }} pts máx</span>
+              <span
+                class="text-[10px] font-mono text-moss group-hover:text-forest transition-colors"
+              >
+                Ver →
+              </span>
             </div>
           </a>
         }
       </div>
     </section>
 
-    <section class="mt-12">
-      <h2 class="font-display text-2xl text-forest font-semibold mb-6">
-        Entregables del equipo
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 stagger-children">
-        @for (item of deliverables; track item.label) {
+    <!-- Estado real de ejecución -->
+    <section class="mt-12 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 items-stretch">
+      <!-- Donut de avance -->
+      <div class="card-section text-center flex flex-col items-center justify-center">
+        <div class="relative w-44 h-44">
+          <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+            <!-- Fondo gris claro -->
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#E4E7E2" stroke-width="9" />
+            <!-- Arco verde animado (4/4 = 100%) -->
+            <circle
+              cx="50"
+              cy="50"
+              r="44"
+              fill="none"
+              stroke="#52A067"
+              stroke-width="9"
+              stroke-linecap="round"
+              stroke-dasharray="276.46"
+              stroke-dashoffset="0"
+              class="donut-progress"
+            />
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span class="font-display text-3xl text-forest font-semibold">4 / 4</span>
+            <span class="text-xs text-moss font-mono">planes generados</span>
+          </div>
+        </div>
+        <p class="text-xs text-pine mt-3 max-w-[200px]">
+          Todos los problemas resueltos por Delfi 1 con planes óptimos.
+        </p>
+      </div>
+
+      <!-- Métricas concretas -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        @for (m of metrics; track m.label) {
           <div class="card-stat animate-fadeInUp">
-            <div class="card-stat__label">{{ item.label }}</div>
-            <div class="card-stat__value">{{ item.value }}</div>
-            <div class="card-stat__desc">{{ item.desc }}</div>
+            <div class="card-stat__label">{{ m.label }}</div>
+            <div class="card-stat__value">{{ m.value }}</div>
+            <div class="card-stat__desc">{{ m.desc }}</div>
           </div>
         }
       </div>
@@ -154,6 +212,9 @@ export class HomeComponent {
         'Ejecución del planner ganador del optimal track sobre la tarea Snake problema 1.',
       link: '/snake',
       maxPoints: 3,
+      // Snake con tablero y manzana
+      iconPath: 'M3 6h6a3 3 0 0 1 3 3v0a3 3 0 0 0 3 3h6 M17 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM3 18h6a3 3 0 0 0 3-3v0a3 3 0 0 1 3-3h6',
+      accent: 'bg-fern/15 text-fern',
     },
     {
       id: 'C2',
@@ -162,32 +223,27 @@ export class HomeComponent {
         'Transcripción del problema del rover a PDDL + 2 escenarios alternativos del autor + planes ejecutados.',
       link: '/rover',
       maxPoints: 5,
+      // Conexiones tipo grafo
+      iconPath: 'M6 6a2 2 0 1 0 0-0.01M18 6a2 2 0 1 0 0-0.01M12 12a2 2 0 1 0 0-0.01M6 18a2 2 0 1 0 0-0.01M18 18a2 2 0 1 0 0-0.01 M7.5 6.5L10.5 11.5 M16.5 6.5L13.5 11.5 M10.5 12.5L7.5 17.5 M13.5 12.5L16.5 17.5',
+      accent: 'bg-pine/15 text-pine',
     },
     {
       id: 'C3',
       title: 'Redacción APA',
       description:
-        'Documento académico con formato, citación y redacción APA.',
+        'Documento académico con formato, citación y redacción APA en 11 secciones.',
       link: '/reporte',
       maxPoints: 2,
+      // Documento con líneas
+      iconPath: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 13h6 M9 17h4',
+      accent: 'bg-moss/15 text-moss',
     },
   ];
 
-  protected readonly deliverables: DeliverableCard[] = [
-    {
-      label: 'Archivos PDDL',
-      value: '1 + 3',
-      desc: '1 domain.pddl común + 3 problem.pddl',
-    },
-    {
-      label: 'Planes generados',
-      value: '4',
-      desc: 'snake-problem-1 + rover-problem-{1,2,3}',
-    },
-    {
-      label: 'Reporte',
-      value: '≤ 12 págs',
-      desc: 'Formato APA · PDF entregable',
-    },
+  protected readonly metrics: DeliverableCard[] = [
+    { label: 'Acciones totales', value: '77', desc: '14 + 19 + 20 + 24 entre los 4 planes' },
+    { label: 'Snake p01', value: '24', desc: 'Delfi 1 · 393 s · plan óptimo' },
+    { label: 'Rover óptimos', value: '14·19·20', desc: 'problem 1 · 2 · 3 · todos verificados' },
+    { label: 'Planner', value: 'Delfi 1', desc: 'Ganador optimal IPC2018 · 584 MB' },
   ];
 }

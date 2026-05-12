@@ -125,6 +125,41 @@
   box-shadow: 0 0 20px rgba(4, 32, 44, 0.15);
 }
 
+/* ─── Donut chart progress animation ─── */
+@keyframes donutProgress {
+  from { stroke-dashoffset: 276.46; }
+  to   { stroke-dashoffset: 0; }
+}
+.donut-progress {
+  animation: donutProgress 1500ms cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+/* ─── Page route transitions ─── */
+@keyframes routeFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ml-60 > main > router-outlet ~ * {
+  animation: routeFadeIn 320ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* ─── Rover token traveling on a path ─── */
+@keyframes roverTravel {
+  to { offset-distance: 100%; }
+}
+.rover-token {
+  offset-path: var(--rover-path, none);
+  offset-distance: 0%;
+  animation: roverTravel 1.2s ease-in-out forwards;
+}
+
+/* ─── Timeline pulse on active step ─── */
+@keyframes timelinePulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(82, 160, 103, 0.6); }
+  50%      { transform: scale(1.08); box-shadow: 0 0 0 10px rgba(82, 160, 103, 0); }
+}
+.timeline-pulse { animation: timelinePulse 2s ease-in-out infinite; }
+
 /* ─── Reduced Motion (a11y) ─── */
 @media (prefers-reduced-motion: reduce) {
   *,
