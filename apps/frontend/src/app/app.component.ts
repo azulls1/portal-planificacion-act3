@@ -76,10 +76,20 @@ interface NavItem {
         }
       </nav>
 
-      <!-- Footer del sidebar -->
+      <!-- Footer del sidebar: atribución a iagentek -->
       <div class="px-4 py-3 border-t border-fog/60 text-[10px] text-moss font-mono">
-        <div>v0.1.0</div>
-        <div class="mt-1">Maestría · 2026</div>
+        <div class="flex items-center gap-2 mb-2 -mx-1 px-2 py-1.5 rounded bg-forest">
+          <img
+            src="/images/logo_ia_withe.webp"
+            alt="iagentek"
+            class="h-5 w-auto"
+          />
+          <div class="flex flex-col leading-tight">
+            <span class="text-[8px] text-white/60 uppercase tracking-wider">powered by</span>
+            <span class="font-display text-[11px] text-white font-semibold normal-case">iagentek</span>
+          </div>
+        </div>
+        <div>v0.1.0 · Maestría 2026</div>
       </div>
     </aside>
 
@@ -89,12 +99,23 @@ interface NavItem {
         <router-outlet />
       </main>
 
-      <footer class="border-t border-fog/60 py-6 px-8 mt-12">
-        <div class="max-w-7xl mx-auto text-xs text-moss flex flex-wrap items-center justify-between gap-2">
-          <span>
-            Razonamiento y planificación automática — Maestría, Primer Semestre · 2026
-          </span>
-          <span class="font-mono">portal-planificacion-act3</span>
+      <footer class="border-t border-fog/60 py-6 px-8 mt-12 bg-forest">
+        <div class="max-w-7xl mx-auto text-xs text-white/80 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <img
+              src="/images/logo_ia_withe.webp"
+              alt="iagentek"
+              class="h-8 w-auto"
+            />
+            <div class="flex flex-col leading-tight">
+              <span class="font-display text-white font-semibold text-sm">iagentek</span>
+              <span class="text-white/60 text-[11px]">Desarrollado para la actividad académica · 2026</span>
+            </div>
+          </div>
+          <div class="flex flex-col leading-tight text-right">
+            <span>Razonamiento y planificación automática</span>
+            <span class="font-mono text-white/60">portal-planificacion-act3</span>
+          </div>
         </div>
       </footer>
     </div>

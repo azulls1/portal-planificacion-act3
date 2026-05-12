@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 interface RubricCard {
-  id: 'C1' | 'C2' | 'C3' | 'C4';
+  id: 'C1' | 'C2' | 'C3';
   title: string;
   description: string;
   link: string;
@@ -21,7 +21,20 @@ interface DeliverableCard {
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="card-hero gradient-dark dark-surface animate-fadeIn">
+    <section class="card-hero gradient-dark dark-surface animate-fadeIn relative overflow-hidden">
+      <!-- Logo iagentek (esquina superior derecha del hero) -->
+      <div class="absolute top-6 right-6 flex items-center gap-2 opacity-90">
+        <img
+          src="/images/logo_ia_withe.webp"
+          alt="iagentek"
+          class="h-10 w-auto"
+        />
+        <div class="flex flex-col leading-tight">
+          <span class="text-[10px] text-white/70 font-mono uppercase tracking-widest">powered by</span>
+          <span class="font-display text-base text-white font-semibold">iagentek</span>
+        </div>
+      </div>
+
       <span class="tag--on-dark mb-4 inline-block">
         Razonamiento y planificación automática · Actividad 3
       </span>
@@ -49,7 +62,7 @@ interface DeliverableCard {
       <h2 class="font-display text-2xl text-forest font-semibold mb-6">
         Cobertura de la rúbrica
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 stagger-children">
         @for (item of rubric; track item.id) {
           <a
             [routerLink]="item.link"
@@ -101,21 +114,32 @@ interface DeliverableCard {
           <a routerLink="/rover" class="text-forest underline hover:no-underline"
             >Sección Rover</a
           >
-          — modelado del problema base + plan generado (criterio 2).
-        </li>
-        <li>
+          + dos
           <a
             routerLink="/escenarios"
             class="text-forest underline hover:no-underline"
-            >Escenarios</a
+            >Escenarios alternativos</a
           >
-          — propuesta alternativa de cada integrante (criterio 3).
+          — modelado del problema base y dos variantes del autor (criterio 2,
+          abstracción PDDL).
         </li>
         <li>
           <a routerLink="/reporte" class="text-forest underline hover:no-underline"
             >Reporte</a
           >
-          — documento APA descargable (criterio 4).
+          — documento APA descargable (criterio 3).
+        </li>
+        <li>
+          <a routerLink="/entregables" class="text-forest underline hover:no-underline"
+            >Entregables</a
+          >
+          — catálogo de todos los archivos físicos del entregable + ZIP descargable.
+        </li>
+        <li>
+          <a routerLink="/como-funciona" class="text-forest underline hover:no-underline"
+            >Cómo funciona</a
+          >
+          — pipeline de 5 etapas, arquitectura del sistema y guía de reproducción.
         </li>
       </ol>
     </section>
@@ -133,23 +157,15 @@ export class HomeComponent {
     },
     {
       id: 'C2',
-      title: 'Rover · PDDL',
+      title: 'Rover · abstracción PDDL',
       description:
-        'Transcripción del problema del rover a PDDL y plan generado por el planner.',
+        'Transcripción del problema del rover a PDDL + 2 escenarios alternativos del autor + planes ejecutados.',
       link: '/rover',
-      maxPoints: 3,
+      maxPoints: 5,
     },
     {
       id: 'C3',
-      title: 'Escenarios',
-      description:
-        'Dos escenarios alternativos diseñados por el autor con PDDL y plan ejecutado.',
-      link: '/escenarios',
-      maxPoints: 2,
-    },
-    {
-      id: 'C4',
-      title: 'Reporte APA',
+      title: 'Redacción APA',
       description:
         'Documento académico con formato, citación y redacción APA.',
       link: '/reporte',

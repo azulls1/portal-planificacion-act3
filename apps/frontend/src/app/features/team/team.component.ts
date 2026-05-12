@@ -36,19 +36,40 @@ import { ApiService, TeamMember } from '../../core/api.service';
 
         <p class="text-sm text-pine mt-6">{{ a.role }}</p>
 
-        <div class="mt-6 pt-6 border-t border-fog">
-          <h3 class="font-display text-base text-forest mb-3">
-            Responsabilidades
-          </h3>
-          <ul class="list-disc list-inside text-sm text-evergreen space-y-1">
-            <li>Transcripción del problema del rover a PDDL (criterio 2)</li>
-            <li>Ejecución de Delfi 1 sobre la tarea Snake del IPC2018 (criterio 1)</li>
-            <li>
-              Diseño de dos escenarios alternativos: problem-2 y problem-3
-              (criterio 3)
-            </li>
-            <li>Redacción del reporte APA (criterio 4)</li>
-          </ul>
+        <div class="mt-6 pt-6 border-t border-fog grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="font-display text-base text-forest mb-3">
+              Responsabilidades
+            </h3>
+            <ul class="list-disc list-inside text-sm text-evergreen space-y-1">
+              <li>Transcripción del problema del rover a PDDL (criterio 2)</li>
+              <li>Ejecución de Delfi 1 sobre la tarea Snake del IPC2018 (criterio 1)</li>
+              <li>
+                Diseño de dos escenarios alternativos: problem-2 y problem-3
+                (parte del criterio 2)
+              </li>
+              <li>Redacción del reporte APA (criterio 3)</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-display text-base text-forest mb-3">Afiliación</h3>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-forest">
+              <img
+                src="/images/logo_ia_withe.webp"
+                alt="iagentek"
+                class="h-12 w-auto shrink-0"
+              />
+              <div class="flex flex-col leading-tight text-white">
+                <span class="font-display text-base font-semibold">iagentek</span>
+                <span class="text-[11px] text-white/70">Desarrollo del portal académico</span>
+              </div>
+            </div>
+            <p class="text-xs text-pine mt-3">
+              Maestría en Inteligencia Artificial · Universidad Internacional de
+              La Rioja (UNIR)
+            </p>
+          </div>
         </div>
       </article>
     }
