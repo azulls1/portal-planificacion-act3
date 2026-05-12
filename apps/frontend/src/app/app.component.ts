@@ -20,29 +20,25 @@ interface NavItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <aside class="sidebar flex flex-col">
-      <!-- Brand -->
+      <!-- Brand: logo iagentek + título del portal -->
       <a
         routerLink="/"
-        class="flex items-center gap-3 px-4 py-5 border-b border-fog/60 hover-scale"
+        class="flex items-center gap-3 px-4 py-4 border-b border-fog/60 hover-scale"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="w-7 h-7 text-forest shrink-0"
-          aria-hidden="true"
+        <div
+          class="w-10 h-10 rounded-lg bg-forest flex items-center justify-center shrink-0 shadow-sm"
         >
-          <path d="M12 2l3 6 6 .9-4.5 4.4 1 6.2L12 16.8 6.5 19.5l1-6.2L3 8.9 9 8z" />
-        </svg>
-        <div class="flex flex-col leading-tight">
-          <span class="font-display text-sm font-semibold text-forest">
+          <img
+            src="/images/logo_ia_withe.webp"
+            alt="iagentek"
+            class="w-7 h-7 object-contain"
+          />
+        </div>
+        <div class="flex flex-col leading-tight min-w-0">
+          <span class="font-display text-sm font-semibold text-forest truncate">
             Portal Actividad 3
           </span>
-          <span class="text-[10px] text-moss font-mono">PDDL · IPC2018</span>
+          <span class="text-[10px] text-moss font-mono">by iagentek</span>
         </div>
       </a>
 
