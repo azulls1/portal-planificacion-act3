@@ -72,6 +72,11 @@ export class TeamComponent implements OnInit {
     const cleaned = name.replace(/\[.*?\]/g, '').trim();
     if (!cleaned) return '?';
     const parts = cleaned.split(/\s+/).filter(Boolean);
-    return (parts[0]?.[0] ?? '') + (parts[1]?.[0] ?? '');
+    // Heurística hispana: 4 partes = nombre1 + nombre2 + apellido1 + apellido2
+    // → tomar primera de nombre + primera de apellido paterno (índice 2)
+    // 3 partes = nombre + apellido + apellido → primera + primera del apellido paterno
+    // 2 partes = nombre + apellido → primera + primera
+    const apellidoIdx = parts.length >= 3 ? parts.length - 2 : 1;
+    return ((parts[0]?.[0] ?? '') + (parts[apellidoIdx]?.[0] ?? '')).toUpperCase();
   }
 }

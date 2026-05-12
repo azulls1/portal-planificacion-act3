@@ -108,7 +108,7 @@ def test_get_author(client: TestClient) -> None:
     assert response.status_code == 200
     body = response.json()
     assert body["slug"] == "autor"
-    assert "Sergio" in body["name"]
+    assert "Adonai" in body["name"]
 
 
 def test_get_scenario_by_slug_problem2(client: TestClient) -> None:

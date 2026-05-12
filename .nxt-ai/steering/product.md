@@ -2,7 +2,7 @@
 
 ## Naturaleza del trabajo: INDIVIDUAL ✓ (confirmado 2026-05-11)
 
-Esta actividad es **trabajo individual** de un único autor (Sergio Hernández — estudiante de la maestría). La rúbrica original menciona "integrantes del equipo" porque es una plantilla genérica; aplicada al caso individual:
+Esta actividad es **trabajo individual** de un único autor (Adonai Samael Hernández Mata — estudiante de la maestría). La rúbrica original menciona "integrantes del equipo" porque es una plantilla genérica; aplicada al caso individual:
 
 - "Cada integrante" → "el autor único"
 - "3 archivos `problem.pddl`" → 1 base del rover + **2 escenarios alternativos diseñados por el autor**
@@ -48,7 +48,7 @@ El portal eleva el techo del entregable sin sacrificar el techo del reporte APA 
 
 ```yaml
 autor:
-  nombre: Sergio Hernández
+  nombre: Adonai Samael Hernández Mata
   email: claude2@gruponxt.com
   rol: estudiante de maestría
   curso: Razonamiento y planificación automática

@@ -42,6 +42,22 @@ export const APP_ROUTES: Routes = [
     title: 'Reporte APA',
   },
   {
+    path: 'entregables',
+    loadComponent: () =>
+      import('./features/entregables/entregables.component').then(
+        (m) => m.EntregablesComponent,
+      ),
+    title: 'Entregables',
+  },
+  {
+    path: 'como-funciona',
+    loadComponent: () =>
+      import('./features/how-it-works/how-it-works.component').then(
+        (m) => m.HowItWorksComponent,
+      ),
+    title: 'Cómo funciona',
+  },
+  {
     path: 'autor',
     loadComponent: () =>
       import('./features/team/team.component').then((m) => m.TeamComponent),

@@ -21,8 +21,7 @@ team/integrante-3.jpg
 O con nombres reales kebab-case si prefieres:
 
 ```
-team/sergio-hernandez.jpg
-team/maria-garcia.jpg
+team/adonai-hernandez-mata.jpg
 ```
 
 > Si usas nombres reales, actualiza el `slug` del integrante en `scenarios.py` para que coincida.

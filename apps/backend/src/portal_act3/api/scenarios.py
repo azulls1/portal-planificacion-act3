@@ -17,7 +17,7 @@ router = APIRouter()
 # Trabajo individual — un solo autor
 _AUTHOR: TeamMember = TeamMember(
     slug="autor",
-    name="Sergio Hernández",
+    name="Adonai Samael Hernández Mata",
     role="Estudiante de la maestría — autor único de la actividad",
     portal_route="/autor",
     scenario_problem_slug=None,  # el autor es responsable de ambos escenarios
@@ -27,7 +27,7 @@ _AUTHOR: TeamMember = TeamMember(
 _SCENARIOS: list[Scenario] = [
     Scenario(
         member_slug="problem-2",
-        member_name="Sergio Hernández",
+        member_name="Adonai Samael Hernández Mata",
         title="Tres minerales con acceso condicionado por el laboratorio",
         description=(
             "Extensión del problema base con un tercer mineral (M3) en una "
@@ -47,7 +47,7 @@ _SCENARIOS: list[Scenario] = [
     ),
     Scenario(
         member_slug="problem-3",
-        member_name="Sergio Hernández",
+        member_name="Adonai Samael Hernández Mata",
         title="Dos laboratorios con asignación oportunista",
         description=(
             "Extensión del problema base con un segundo laboratorio (L7) "
