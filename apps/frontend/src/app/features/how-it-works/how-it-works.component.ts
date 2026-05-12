@@ -7,6 +7,8 @@ interface Stage {
   inputs: string[];
   outputs: string[];
   files: string[];
+  iconPath: string;
+  accent: string;
 }
 
 @Component({
@@ -62,51 +64,78 @@ interface Stage {
 </pre>
     </section>
 
-    <!-- 5 etapas -->
-    <h2 class="font-display text-xl text-forest mb-4">Las 5 etapas del pipeline</h2>
-    <ol class="space-y-4">
-      @for (s of stages; track s.num) {
-        <li class="card-section animate-fadeInUp">
-          <div class="flex items-start gap-4">
-            <div
-              class="shrink-0 w-10 h-10 rounded-full bg-fern text-white font-display text-lg flex items-center justify-center"
-            >
-              {{ s.num }}
-            </div>
-            <div class="flex-1">
-              <h3 class="font-display text-lg text-forest font-semibold">
-                {{ s.title }}
-              </h3>
-              <p class="text-sm text-pine mt-2">{{ s.desc }}</p>
+    <!-- 5 etapas como timeline visual con línea conectora -->
+    <h2 class="font-display text-xl text-forest mb-6">Las 5 etapas del pipeline</h2>
+    <ol class="relative pl-12 stagger-children">
+      <!-- Línea vertical conectora -->
+      <div class="absolute left-[19px] top-2 bottom-2 w-0.5 bg-fern/30"></div>
 
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                <div>
-                  <div class="text-[10px] font-mono text-moss uppercase mb-1">Entrada</div>
-                  <ul class="text-xs text-evergreen space-y-1">
-                    @for (i of s.inputs; track i) {
-                      <li class="font-mono">{{ i }}</li>
-                    }
-                  </ul>
+      @for (s of stages; track s.num; let last = $last) {
+        <li class="relative animate-fadeInUp mb-6">
+          <!-- Marcador en la línea: círculo con icono + número -->
+          <div
+            class="absolute -left-12 top-1 w-10 h-10 rounded-full bg-fern flex items-center justify-center shadow-md ring-4 ring-gray-50 timeline-pulse"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-5 h-5"
+              aria-hidden="true"
+            >
+              <path [attr.d]="s.iconPath" />
+            </svg>
+          </div>
+
+          <article class="card-section ml-2 hover-lift relative">
+            <span class="absolute -top-3 right-4 bg-fern text-white text-[10px] font-mono px-2 py-0.5 rounded-full shadow-sm">
+              ETAPA {{ s.num }}
+            </span>
+            <h3 class="font-display text-lg text-forest font-semibold">
+              {{ s.title }}
+            </h3>
+            <p class="text-sm text-pine mt-2">{{ s.desc }}</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 pt-4 border-t border-fog">
+              <div>
+                <div class="text-[10px] font-mono text-moss uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-pine"></span>
+                  Entrada
                 </div>
-                <div>
-                  <div class="text-[10px] font-mono text-moss uppercase mb-1">Salida</div>
-                  <ul class="text-xs text-evergreen space-y-1">
-                    @for (o of s.outputs; track o) {
-                      <li class="font-mono">{{ o }}</li>
-                    }
-                  </ul>
+                <ul class="text-xs text-evergreen space-y-1">
+                  @for (i of s.inputs; track i) {
+                    <li class="font-mono">{{ i }}</li>
+                  }
+                </ul>
+              </div>
+              <div>
+                <div class="text-[10px] font-mono text-moss uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-fern"></span>
+                  Salida
                 </div>
-                <div>
-                  <div class="text-[10px] font-mono text-moss uppercase mb-1">Archivos clave</div>
-                  <ul class="text-xs text-evergreen space-y-1">
-                    @for (f of s.files; track f) {
-                      <li class="font-mono">{{ f }}</li>
-                    }
-                  </ul>
+                <ul class="text-xs text-evergreen space-y-1">
+                  @for (o of s.outputs; track o) {
+                    <li class="font-mono">{{ o }}</li>
+                  }
+                </ul>
+              </div>
+              <div>
+                <div class="text-[10px] font-mono text-moss uppercase tracking-wider mb-1 flex items-center gap-1">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-moss"></span>
+                  Archivos clave
                 </div>
+                <ul class="text-xs text-evergreen space-y-1">
+                  @for (f of s.files; track f) {
+                    <li class="font-mono">{{ f }}</li>
+                  }
+                </ul>
               </div>
             </div>
-          </div>
+          </article>
         </li>
       }
     </ol>
@@ -184,6 +213,9 @@ export class HowItWorksComponent {
       inputs: ['Enunciado .docx', 'Figura 1 del enunciado'],
       outputs: ['domain.pddl', 'problem-1.pddl', 'problem-2.pddl', 'problem-3.pddl'],
       files: ['entregables/pddl/', 'docs/01-pddl-modeling-decisions.md'],
+      // Documento con engranaje (modelado)
+      iconPath: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M12 18l-1.5-2.5L8 15l2-1.5L9.5 11 12 12l2.5-1L14 13.5 16 15l-2.5.5z',
+      accent: 'bg-pine/15 text-pine',
     },
     {
       num: 2,
@@ -192,6 +224,9 @@ export class HowItWorksComponent {
       inputs: ['receta Singularity de team23', 'apptainer 1.5.0'],
       outputs: ['planner.img (584 MB)', '~16 min de compilación'],
       files: ['infra/singularity/_build-from-wsl.sh', 'infra/singularity/pull-planner.sh'],
+      // Caja (contenedor)
+      iconPath: 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z M3.27 6.96L12 12.01l8.73-5.05 M12 22.08V12',
+      accent: 'bg-evergreen/15 text-evergreen',
     },
     {
       num: 3,
@@ -200,6 +235,9 @@ export class HowItWorksComponent {
       inputs: ['planner.img', 'los 4 problem.pddl', 'domain.pddl'],
       outputs: ['snake-problem-1-plan.txt (24)', 'rover-{1,2,3}-plan.txt (14/19/20)'],
       files: ['tools/run_all_planners.sh'],
+      // Play circle
+      iconPath: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z M10 8l6 4-6 4V8z',
+      accent: 'bg-fern/15 text-fern',
     },
     {
       num: 4,
@@ -208,6 +246,9 @@ export class HowItWorksComponent {
       inputs: ['planes generados', 'domain.pddl'],
       outputs: ['confirmación de goal', '4 hashes SHA-256'],
       files: ['apps/backend/src/portal_act3/domain/plan_simulator.py'],
+      // Shield check
+      iconPath: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4',
+      accent: 'bg-pine/15 text-pine',
     },
     {
       num: 5,
@@ -216,6 +257,9 @@ export class HowItWorksComponent {
       inputs: ['planes verificados', 'stdout.log de Delfi'],
       outputs: ['8 figuras', '7 capturas', 'reporte.md', 'references.bib'],
       files: ['entregables/reporte/', 'tools/render_terminal_png.py'],
+      // Doc con líneas
+      iconPath: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 13h6 M9 17h4',
+      accent: 'bg-moss/15 text-moss',
     },
   ];
 }
