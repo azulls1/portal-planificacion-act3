@@ -6,10 +6,13 @@ Portal web que sirve como entregable digital de la Actividad 3 del curso **Razon
 
 Reúne en un solo lugar:
 
-- 🐍 **Tarea Snake** del IPC2018 ejecutada con el planner ganador del optimal track
-- 🤖 **Modelado PDDL del rover** (dominio + 3 problemas: base + 2 alternativos por integrante)
-- 📊 **Visualización** de topologías, planes paso a paso y diffs entre escenarios
-- 📄 **Reporte APA** descargable (máx 12 págs)
+- 🐍 **Tarea Snake** del IPC2018 (`/snake`) ejecutada con el planner ganador del optimal track
+- 🤖 **Modelado PDDL del rover** (`/rover`): dominio + 3 problemas (base + 2 alternativos)
+- 🗺️ **Escenarios alternativos** (`/escenarios`, `/escenarios/:slug`): topologías, planes paso a paso y diffs
+- 📦 **Entregables** (`/entregables`): descarga del ZIP final con PDDL, planes, capturas y reporte
+- 🧭 **Cómo funciona** (`/como-funciona`): timeline visual del flujo end-to-end
+- 👤 **Autor** (`/autor`): perfil del integrante
+- 📄 **Reporte APA** (`/reporte`) descargable (máx 12 págs)
 
 ## Stack
 
@@ -81,14 +84,21 @@ portal-planificacion-act3/
 │   ├── frontend/              ← Angular 19 + Forest DS
 │   └── backend/               ← FastAPI + Celery
 ├── entregables/               ← LO QUE SE ENTREGA AL PROFESOR
-│   ├── pddl/                  ← 1 domain + 3 problem.pddl
+│   ├── pddl/                  ← domain.pddl + problem-{1,2,3}.pddl + snake-ipc2018/
 │   ├── planes/                ← planes generados (output del planner)
 │   ├── capturas/              ← screenshots de evidencia
-│   └── reporte/               ← reporte APA en PDF
+│   ├── reporte/               ← reporte APA (md + figuras + references.bib)
+│   └── entregable-actividad-3.zip   ← bundle final listo para subir
 ├── infra/
 │   ├── singularity/           ← scripts y guía de instalación
 │   ├── supabase/              ← migrations SQL + setup
 │   └── celery/                ← guía del worker
+├── tools/                     ← scripts auxiliares (no runtime)
+│   ├── check_setup.sh
+│   ├── run_all_planners.sh
+│   ├── compare_plans.py
+│   ├── build_entregable_zip.py
+│   └── render_terminal_png.py
 └── docs/                      ← documentación interna
 ```
 
@@ -111,13 +121,14 @@ portal-planificacion-act3/
 | [`docs/GLOSSARY.md`](docs/GLOSSARY.md) | Glosario de 62 términos del proyecto |
 | [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) | 15 escenarios de error con solución |
 | [`docs/analisis-de-requerimientos/`](docs/analisis-de-requerimientos/) | Análisis previo del .docx del profesor: descomposición, matriz rúbrica, auditoría completa |
+| [`tools/README.md`](tools/README.md) | Catálogo de scripts auxiliares (verificación, ejecución del planner, validación de planes) |
 | [`.nxt-ai/constitution.md`](.nxt-ai/constitution.md) | Invariantes del proyecto |
 | [`.nxt-ai/steering/`](.nxt-ai/steering/) | Producto, stack, estructura, design system |
 | [`.nxt-ai/features/FEAT-001-portal-actividad3/feature-spec.md`](.nxt-ai/features/FEAT-001-portal-actividad3/feature-spec.md) | Spec EARS con 23 criterios |
 
-## Pendientes conocidos
+## Estado actual
 
-Ver `.nxt-ai/features/FEAT-001-portal-actividad3/feature-spec.md` §7 — ambigüedades por resolver con el profesor (cantidad de integrantes, individual vs equipo, capacidad del rover, fecha de entrega, etc.).
+Entrega **individual** (autor único: Adonai Samael Hernández Mata). Los 3 problemas del rover están modelados, los planes generados y validados, el ZIP final construido y descargable desde `/entregables`. Ambigüedades originales (individual vs equipo, cantidad de problemas, capacidad del rover) ya resueltas; ver historial en `.nxt-ai/features/FEAT-001-portal-actividad3/feature-spec.md`.
 
 ## Licencia
 
