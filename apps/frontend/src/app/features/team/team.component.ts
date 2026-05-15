@@ -5,75 +5,247 @@ import { ApiService, TeamMember } from '../../core/api.service';
   selector: 'app-team',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .author-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 22px;
+        align-items: center;
+        padding: 28px 32px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #FFFFFF 0%, #F7F8F7 100%);
+        border: 1px solid var(--color-border);
+        overflow: hidden;
+      }
+      .author-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(400px 200px at 100% 0%, rgba(46, 90, 60, 0.10), transparent 60%);
+        pointer-events: none;
+      }
+      .author-card > * {
+        position: relative;
+        z-index: 1;
+      }
+      .author-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--color-forest, #2E5A3C) 0%, #1F4B30 100%);
+        color: #FFFFFF;
+        display: grid;
+        place-items: center;
+        font-family: var(--font-display, 'Fraunces', serif);
+        font-size: 32px;
+        font-weight: 600;
+        box-shadow: 0 8px 24px rgba(4, 32, 44, 0.18);
+      }
+      .author-name {
+        font-family: var(--font-display, 'Fraunces', serif);
+        font-size: 26px;
+        font-weight: 600;
+        color: var(--color-forest, #2E5A3C);
+        line-height: 1.1;
+      }
+      .author-role {
+        margin-top: 6px;
+        font-size: 13px;
+        color: var(--color-text-secondary, #4A5C50);
+      }
+
+      .resp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 12px;
+        margin-top: 24px;
+      }
+      .resp-card {
+        position: relative;
+        padding: 16px;
+        border-radius: 12px;
+        background: #FFFFFF;
+        border: 1px solid var(--color-border);
+        overflow: hidden;
+        transition: border-color 150ms ease, transform 150ms ease;
+      }
+      .resp-card:hover {
+        border-color: var(--color-forest, #2E5A3C);
+        transform: translateY(-2px);
+      }
+      .resp-card__icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(46, 90, 60, 0.08);
+        color: var(--color-forest, #2E5A3C);
+        display: grid;
+        place-items: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      .resp-card__crit {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: var(--color-forest, #2E5A3C);
+      }
+      .resp-card__title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-text-primary);
+        margin-top: 4px;
+        line-height: 1.3;
+      }
+
+      .affiliation {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        border-radius: 12px;
+        background: var(--color-forest, #2E5A3C);
+        color: #FFFFFF;
+      }
+      .affiliation__name {
+        font-family: var(--font-display, 'Fraunces', serif);
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .affiliation__sub {
+        font-size: 11px;
+        opacity: 0.75;
+      }
+      @media (max-width: 720px) {
+        .resp-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .author-card {
+          grid-template-columns: 1fr;
+          text-align: center;
+          justify-items: center;
+        }
+      }
+    `,
+  ],
   template: `
-    <header class="mb-8">
-      <h1 class="font-display text-3xl text-forest font-semibold">Autor</h1>
-      <p class="text-sm text-pine mt-2 max-w-3xl">
-        Esta actividad es trabajo individual. A continuación se identifica al
-        autor responsable del modelado, ejecución y redacción.
-      </p>
+    <header class="page-hero page-hero--single">
+      <div>
+        <span class="tag mb-3 inline-block">Trabajo individual</span>
+        <h1 class="page-hero__title">Autor</h1>
+        <p class="page-hero__lead">
+          Esta actividad es trabajo individual. A continuación se identifica al
+          autor responsable del modelado, ejecución y redacción del entregable.
+        </p>
+      </div>
     </header>
 
     @let a = author();
 
     @if (loading()) {
-      <div class="skeleton" style="height: 220px;"></div>
+      <div class="skeleton mt-8" style="height: 220px; border-radius: 18px;"></div>
     } @else if (a) {
-      <article class="card-section animate-fadeInUp max-w-2xl">
-        <div class="flex items-center gap-5">
-          <div
-            class="w-20 h-20 rounded-full bg-fog flex items-center justify-center font-display text-forest text-3xl"
-          >
-            {{ initials(a.name) }}
-          </div>
+      <section class="page-section">
+        <div class="page-section__header">
+          <div class="page-section__num">👤</div>
           <div>
-            <h2 class="font-display text-2xl text-forest font-semibold">
-              {{ a.name }}
-            </h2>
-            <p class="text-sm text-moss font-mono mt-1">{{ a.slug }}</p>
-          </div>
-        </div>
-
-        <p class="text-sm text-pine mt-6">{{ a.role }}</p>
-
-        <div class="mt-6 pt-6 border-t border-fog grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="font-display text-base text-forest mb-3">
-              Responsabilidades
-            </h3>
-            <ul class="list-disc list-inside text-sm text-evergreen space-y-1">
-              <li>Transcripción del problema del rover a PDDL (criterio 2)</li>
-              <li>Ejecución de Delfi 1 sobre la tarea Snake del IPC2018 (criterio 1)</li>
-              <li>
-                Diseño de dos escenarios alternativos: problem-2 y problem-3
-                (parte del criterio 2)
-              </li>
-              <li>Redacción del reporte APA (criterio 3)</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-display text-base text-forest mb-3">Afiliación</h3>
-            <div class="flex items-center gap-3 p-3 rounded-lg bg-forest">
-              <img
-                src="/images/logo_ia_withe.webp"
-                alt="iagentek"
-                class="h-12 w-auto shrink-0"
-              />
-              <div class="flex flex-col leading-tight text-white">
-                <span class="font-display text-base font-semibold">iagentek</span>
-                <span class="text-[11px] text-white/70">Desarrollo del portal académico</span>
-              </div>
-            </div>
-            <p class="text-xs text-pine mt-3">
-              Maestría en Inteligencia Artificial · Universidad Internacional de
-              La Rioja (UNIR)
+            <h2 class="page-section__title">Perfil</h2>
+            <p class="page-section__lead">
+              Identificación, rol y afiliación institucional.
             </p>
           </div>
         </div>
-      </article>
+
+        <article class="author-card">
+          <div class="author-avatar">{{ initials(a.name) }}</div>
+          <div>
+            <h2 class="author-name">{{ a.name }}</h2>
+            <p class="text-sm text-moss font-mono mt-1">{{ a.slug }}</p>
+            <p class="author-role">{{ a.role }}</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="page-section">
+        <div class="page-section__header">
+          <div class="page-section__num">📋</div>
+          <div>
+            <h2 class="page-section__title">Responsabilidades</h2>
+            <p class="page-section__lead">
+              Aporte por criterio de la rúbrica.
+            </p>
+          </div>
+        </div>
+
+        <div class="resp-grid">
+          <div class="resp-card">
+            <div class="resp-card__icon">🐍</div>
+            <div class="resp-card__crit">CRITERIO 1</div>
+            <div class="resp-card__title">Ejecución de Delfi 1 sobre la tarea Snake del IPC2018</div>
+          </div>
+          <div class="resp-card">
+            <div class="resp-card__icon">🤖</div>
+            <div class="resp-card__crit">CRITERIO 2</div>
+            <div class="resp-card__title">Transcripción del problema del rover a PDDL</div>
+          </div>
+          <div class="resp-card">
+            <div class="resp-card__icon">🧪</div>
+            <div class="resp-card__crit">CRITERIO 2</div>
+            <div class="resp-card__title">Diseño de dos escenarios alternativos (problem-2 / problem-3)</div>
+          </div>
+          <div class="resp-card">
+            <div class="resp-card__icon">📄</div>
+            <div class="resp-card__crit">CRITERIO 3</div>
+            <div class="resp-card__title">Redacción del reporte APA</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section">
+        <div class="page-section__header">
+          <div class="page-section__num">🎓</div>
+          <div>
+            <h2 class="page-section__title">Afiliación</h2>
+            <p class="page-section__lead">
+              Institución académica y patrocinador del desarrollo del portal.
+            </p>
+          </div>
+        </div>
+
+        <div class="split-grid">
+          <div class="affiliation">
+            <img src="/images/logo_ia_withe.webp" alt="iagentek" class="h-12 w-auto shrink-0" />
+            <div>
+              <div class="affiliation__name">iagentek</div>
+              <div class="affiliation__sub">Desarrollo del portal académico</div>
+            </div>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-cell info-cell--full">
+              <div class="info-cell__label">Programa</div>
+              <div class="info-cell__value">Maestría en Inteligencia Artificial</div>
+            </div>
+            <div class="info-cell">
+              <div class="info-cell__label">Universidad</div>
+              <div class="info-cell__value">UNIR</div>
+            </div>
+            <div class="info-cell">
+              <div class="info-cell__label">Materia</div>
+              <div class="info-cell__value">Razonamiento y planificación</div>
+            </div>
+          </div>
+        </div>
+      </section>
     }
   `,
+  host: { class: 'block max-w-5xl mx-auto' },
 })
 export class TeamComponent implements OnInit {
   private readonly api = inject(ApiService);
@@ -93,10 +265,6 @@ export class TeamComponent implements OnInit {
     const cleaned = name.replace(/\[.*?\]/g, '').trim();
     if (!cleaned) return '?';
     const parts = cleaned.split(/\s+/).filter(Boolean);
-    // Heurística hispana: 4 partes = nombre1 + nombre2 + apellido1 + apellido2
-    // → tomar primera de nombre + primera de apellido paterno (índice 2)
-    // 3 partes = nombre + apellido + apellido → primera + primera del apellido paterno
-    // 2 partes = nombre + apellido → primera + primera
     const apellidoIdx = parts.length >= 3 ? parts.length - 2 : 1;
     return ((parts[0]?.[0] ?? '') + (parts[apellidoIdx]?.[0] ?? '')).toUpperCase();
   }
