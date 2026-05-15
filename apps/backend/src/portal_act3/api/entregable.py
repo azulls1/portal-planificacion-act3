@@ -94,7 +94,7 @@ async def get_entregable_info() -> EntregableInfo:
     return info
 
 
-@router.get("/download")
+@router.get("/download", response_model=None)
 async def download_entregable() -> FileResponse | RedirectResponse:
     p = _zip_path()
     if p.is_file():
@@ -115,7 +115,7 @@ async def download_entregable() -> FileResponse | RedirectResponse:
     )
 
 
-@router.get("/reporte.pdf")
+@router.get("/reporte.pdf", response_model=None)
 async def download_reporte_pdf() -> FileResponse | RedirectResponse:
     """Descarga directa del PDF del reporte."""
     p = _reporte_pdf_path()
