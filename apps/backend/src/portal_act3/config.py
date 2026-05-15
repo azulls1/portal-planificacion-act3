@@ -41,6 +41,11 @@ class Settings(BaseSettings):
     # Convención Docker secrets: si vienen `*_FILE`, leemos el contenido del archivo
     supabase_anon_key_file: str = ""
     supabase_service_role_key_file: str = ""
+    # URL pública del API de Storage (usada para construir links de descarga
+    # visibles al usuario). En interno hablamos por `supabase_url`.
+    supabase_public_url: str = ""
+    # Bucket donde viven los entregables (ZIP + PDF reporte).
+    entregables_bucket: str = "entregables-portal-act3"
 
     pddl_dir: Path = Path(__file__).resolve().parents[3].parent / "entregables" / "pddl"
     plans_dir: Path = Path(__file__).resolve().parents[3].parent / "entregables" / "planes"

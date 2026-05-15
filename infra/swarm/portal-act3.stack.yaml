@@ -37,6 +37,9 @@ services:
       SINGULARITY_IMAGE_PATH: ""
       # Conexión a supabase-maestria (instancia interna, vía red overlay)
       SUPABASE_URL: http://supabase-maestria_kong:8000
+      # URL pública para construir links de descarga (Storage redirect)
+      SUPABASE_PUBLIC_URL: https://supabase-maestria.iagentek.com.mx
+      ENTREGABLES_BUCKET: entregables-portal-act3
       SUPABASE_SERVICE_ROLE_KEY_FILE: /run/secrets/portal_act3_supabase_service_key
       SUPABASE_ANON_KEY_FILE: /run/secrets/portal_act3_supabase_anon_key
     secrets:

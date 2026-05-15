@@ -125,6 +125,9 @@ export interface EntregableInfo {
   size_bytes: number | null;
   sha256: string | null;
   download_url: string | null;
+  reporte_pdf_exists: boolean;
+  reporte_pdf_size_bytes: number | null;
+  reporte_pdf_url: string | null;
 }
 
 export interface PlanFileInfo {

@@ -144,11 +144,20 @@ const CRITERIO_COLOR: Record<string, 'blue' | 'green' | 'amber' | 'forest'> = {
                   Listo para descargar (alineado con la rúbrica de 3 criterios del profesor).
                   <div class="mt-3 flex flex-wrap items-center gap-3">
                     <a [href]="zip.download_url" class="btn btn-cta text-sm" download>
-                      Descargar
+                      Descargar ZIP completo
                     </a>
-                    <span class="text-xs font-mono text-moss">
-                      {{ ((zip.size_bytes ?? 0) / 1024).toFixed(1) }} KB
-                    </span>
+                    @if (zip.reporte_pdf_exists && zip.reporte_pdf_url) {
+                      <a [href]="zip.reporte_pdf_url" class="btn text-sm" download>
+                        Solo PDF del reporte
+                      </a>
+                      <span class="text-xs font-mono text-moss">
+                        ZIP {{ ((zip.size_bytes ?? 0) / 1024).toFixed(1) }} KB · PDF {{ ((zip.reporte_pdf_size_bytes ?? 0) / 1024).toFixed(1) }} KB
+                      </span>
+                    } @else {
+                      <span class="text-xs font-mono text-moss">
+                        {{ ((zip.size_bytes ?? 0) / 1024).toFixed(1) }} KB
+                      </span>
+                    }
                   </div>
                 } @else {
                   Aún no se ha generado. Corre
