@@ -1,0 +1,103 @@
+# Stack Swarm para desplegar el portal en el VPS iaGentek
+# Dominio público: https://rover-mineral-transport.iagentek.com.mx
+#
+# Deploy:
+#   docker stack deploy -c infra/swarm/portal-act3.stack.yaml portal-act3
+
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7-alpine
+    networks:
+      - portal-act3_internal
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          memory: 256M
+
+  backend:
+    image: portal-act3-backend:latest
+    environment:
+      APP_ENV: production
+      DEBUG: "false"
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      PORTAL_ACT3_PDDL_DIR: /entregables/pddl
+      PORTAL_ACT3_PLANS_DIR: /entregables/planes
+      CORS_ORIGINS: '["https://rover-mineral-transport.iagentek.com.mx"]'
+      # Modo degraded (sin planner real): planes pre-calculados servidos desde entregables/
+      SINGULARITY_IMAGE_PATH: ""
+    networks:
+      - portal-act3_internal
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          memory: 768M
+
+  worker:
+    image: portal-act3-backend:latest
+    command:
+      - celery
+      - -A
+      - portal_act3.tasks.celery_app.celery_app
+      - worker
+      - --loglevel=info
+      - -P
+      - solo
+    environment:
+      APP_ENV: production
+      DEBUG: "false"
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      PORTAL_ACT3_PDDL_DIR: /entregables/pddl
+      PORTAL_ACT3_PLANS_DIR: /entregables/planes
+      SINGULARITY_IMAGE_PATH: ""
+    networks:
+      - portal-act3_internal
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          memory: 512M
+
+  frontend:
+    image: portal-act3-frontend:latest
+    networks:
+      - portal-act3_internal
+      - iagenteknet
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      resources:
+        limits:
+          memory: 128M
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=iagenteknet"
+        - "traefik.http.routers.portal-act3.rule=Host(`rover-mineral-transport.iagentek.com.mx`)"
+        - "traefik.http.routers.portal-act3.entrypoints=websecure"
+        - "traefik.http.routers.portal-act3.tls=true"
+        - "traefik.http.routers.portal-act3.tls.certresolver=letsencryptresolver"
+        - "traefik.http.routers.portal-act3.service=portal-act3"
+        - "traefik.http.services.portal-act3.loadbalancer.server.port=80"
+        - "traefik.http.services.portal-act3.loadbalancer.passHostHeader=true"
+
+networks:
+  portal-act3_internal:
+    driver: overlay
+    attachable: true
+  iagenteknet:
+    external: true
+    name: iagenteknet
