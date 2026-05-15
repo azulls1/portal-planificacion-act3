@@ -1,6 +1,10 @@
 # Stack Swarm para desplegar el portal en el VPS iaGentek
 # Dominio público: https://rover-mineral-transport.iagentek.com.mx
 #
+# Pre-requisitos (una sola vez antes del primer deploy):
+#   echo -n '<SERVICE_ROLE_KEY>' | docker secret create portal_act3_supabase_service_key -
+#   echo -n '<ANON_KEY>'        | docker secret create portal_act3_supabase_anon_key -
+#
 # Deploy:
 #   docker stack deploy -c infra/swarm/portal-act3.stack.yaml portal-act3
 
@@ -30,10 +34,17 @@ services:
       PORTAL_ACT3_PDDL_DIR: /entregables/pddl
       PORTAL_ACT3_PLANS_DIR: /entregables/planes
       CORS_ORIGINS: '["https://rover-mineral-transport.iagentek.com.mx"]'
-      # Modo degraded (sin planner real): planes pre-calculados servidos desde entregables/
       SINGULARITY_IMAGE_PATH: ""
+      # Conexión a supabase-maestria (instancia interna, vía red overlay)
+      SUPABASE_URL: http://supabase-maestria_kong:8000
+      SUPABASE_SERVICE_ROLE_KEY_FILE: /run/secrets/portal_act3_supabase_service_key
+      SUPABASE_ANON_KEY_FILE: /run/secrets/portal_act3_supabase_anon_key
+    secrets:
+      - portal_act3_supabase_service_key
+      - portal_act3_supabase_anon_key
     networks:
       - portal-act3_internal
+      - supabase_maestria_internal
     deploy:
       replicas: 1
       restart_policy:
@@ -61,8 +72,15 @@ services:
       PORTAL_ACT3_PDDL_DIR: /entregables/pddl
       PORTAL_ACT3_PLANS_DIR: /entregables/planes
       SINGULARITY_IMAGE_PATH: ""
+      SUPABASE_URL: http://supabase-maestria_kong:8000
+      SUPABASE_SERVICE_ROLE_KEY_FILE: /run/secrets/portal_act3_supabase_service_key
+      SUPABASE_ANON_KEY_FILE: /run/secrets/portal_act3_supabase_anon_key
+    secrets:
+      - portal_act3_supabase_service_key
+      - portal_act3_supabase_anon_key
     networks:
       - portal-act3_internal
+      - supabase_maestria_internal
     deploy:
       replicas: 1
       restart_policy:
@@ -101,3 +119,12 @@ networks:
   iagenteknet:
     external: true
     name: iagenteknet
+  supabase_maestria_internal:
+    external: true
+    name: supabase_maestria_internal
+
+secrets:
+  portal_act3_supabase_service_key:
+    external: true
+  portal_act3_supabase_anon_key:
+    external: true

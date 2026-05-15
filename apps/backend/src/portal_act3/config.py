@@ -7,6 +7,15 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+def _read_secret_or_env(file_env: str | None, plain: str) -> str:
+    """Resuelve un secreto: prioriza file (Docker secrets) sobre env directo."""
+    if file_env:
+        path = Path(file_env)
+        if path.exists():
+            return path.read_text(encoding="utf-8").strip()
+    return plain
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -29,6 +38,9 @@ class Settings(BaseSettings):
     supabase_url: str = ""
     supabase_anon_key: str = ""
     supabase_service_role_key: str = ""
+    # Convención Docker secrets: si vienen `*_FILE`, leemos el contenido del archivo
+    supabase_anon_key_file: str = ""
+    supabase_service_role_key_file: str = ""
 
     pddl_dir: Path = Path(__file__).resolve().parents[3].parent / "entregables" / "pddl"
     plans_dir: Path = Path(__file__).resolve().parents[3].parent / "entregables" / "planes"
@@ -36,6 +48,12 @@ class Settings(BaseSettings):
     singularity_image_path: Path | None = None
     singularity_planner_name: str = "delfi"
     plan_timeout_seconds: int = 1800
+
+    def resolved_supabase_service_role_key(self) -> str:
+        return _read_secret_or_env(self.supabase_service_role_key_file, self.supabase_service_role_key)
+
+    def resolved_supabase_anon_key(self) -> str:
+        return _read_secret_or_env(self.supabase_anon_key_file, self.supabase_anon_key)
 
 
 @lru_cache

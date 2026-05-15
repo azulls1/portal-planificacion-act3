@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter
 
+from portal_act3.adapters.supabase_repo import get_supabase_repo
 from portal_act3.domain.models import Scenario, TeamMember
 
 router = APIRouter()
@@ -73,22 +74,35 @@ _SCENARIOS: list[Scenario] = [
 @router.get("/team", response_model=list[TeamMember])
 async def list_team_members() -> list[TeamMember]:
     """Trabajo individual: devuelve el autor único como elemento de la lista."""
+    members = get_supabase_repo().list_team_members()
+    if members:
+        return members
     return [_AUTHOR]
 
 
 @router.get("/author", response_model=TeamMember)
 async def get_author() -> TeamMember:
-    return _AUTHOR
+    member = get_supabase_repo().get_team_member("autor")
+    return member or _AUTHOR
 
 
 @router.get("", response_model=list[Scenario])
 async def list_scenarios() -> list[Scenario]:
-    return _SCENARIOS
+    scenarios = get_supabase_repo().list_scenarios()
+    if scenarios is None:
+        return _SCENARIOS
+    # Excluimos el escenario base (problem-1) de la lista pública para mantener
+    # compatibilidad con el contrato anterior — el frontend solo muestra los
+    # alternativos (problem-2 y problem-3) en /escenarios.
+    return [s for s in scenarios if s.problem_slug != "problem-1"]
 
 
 @router.get("/{slug}", response_model=Scenario | None)
 async def get_scenario_by_slug(slug: str) -> Scenario | None:
-    for scenario in _SCENARIOS:
-        if scenario.member_slug == slug or scenario.problem_slug == slug:
-            return scenario
+    scenario = get_supabase_repo().get_scenario(slug)
+    if scenario is not None:
+        return scenario
+    for fallback in _SCENARIOS:
+        if fallback.member_slug == slug or fallback.problem_slug == slug:
+            return fallback
     return None

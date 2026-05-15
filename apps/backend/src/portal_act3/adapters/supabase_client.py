@@ -50,13 +50,17 @@ class SupabaseDegradedStorage:
 @lru_cache
 def get_supabase_client() -> Any:
     settings = get_settings()
-    if not settings.supabase_url or not settings.supabase_service_role_key:
+    service_key = settings.resolved_supabase_service_role_key()
+    if not settings.supabase_url or not service_key:
         return SupabaseDegradedClient()
     try:
         from supabase import create_client
     except ImportError:
         return SupabaseDegradedClient()
-    return create_client(settings.supabase_url, settings.supabase_service_role_key)
+    try:
+        return create_client(settings.supabase_url, service_key)
+    except Exception:  # noqa: BLE001
+        return SupabaseDegradedClient()
 
 
 def is_degraded() -> bool:
