@@ -8,52 +8,91 @@ import { ApiService, Scenario } from '../../core/api.service';
   imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <header class="mb-8">
-      <span class="tag mb-2 inline-block">Criterio 3 · 2 pts</span>
-      <h1 class="font-display text-3xl text-forest font-semibold">
-        Escenarios alternativos del autor
-      </h1>
-      <p class="text-sm text-pine mt-2 max-w-3xl">
-        Dos escenarios diseñados como variaciones del problema base del rover,
-        cada uno orientado a evaluar una capacidad distinta del planner óptimo.
-        Ambos reutilizan el mismo
-        <code class="font-mono">domain.pddl</code> sin modificación.
-      </p>
+    <header class="page-hero">
+      <div>
+        <span class="tag mb-3 inline-block">Criterio 2 · abstracción PDDL</span>
+        <h1 class="page-hero__title">Escenarios alternativos</h1>
+        <p class="page-hero__lead">
+          Dos escenarios diseñados como variaciones del problema base del rover,
+          cada uno orientado a evaluar una capacidad distinta del planner óptimo.
+          Ambos reutilizan el mismo <code>domain.pddl</code> sin modificación.
+        </p>
+      </div>
+
+      <div class="page-hero__stats">
+        <div class="stat-card stat-card--accent">
+          <div class="stat-card__label">Escenarios</div>
+          <div class="stat-card__value">2</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Dominio</div>
+          <div class="stat-card__value">compartido</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Planes</div>
+          <div class="stat-card__value">19 + 20</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Verificados</div>
+          <div class="stat-card__value">✓ ambos</div>
+        </div>
+      </div>
     </header>
 
-    @if (loading()) {
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        @for (i of [1, 2]; track i) {
-          <div class="skeleton" style="height: 220px;"></div>
-        }
+    <section class="page-section">
+      <div class="page-section__header">
+        <div class="page-section__num">↗</div>
+        <div>
+          <h2 class="page-section__title">Cuadro comparativo</h2>
+          <p class="page-section__lead">
+            Selecciona un escenario para ver el PDDL, el plan generado y el
+            diff contra <code>problem-1</code>.
+          </p>
+        </div>
       </div>
-    } @else {
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 stagger-children">
-        @for (s of scenarios(); track s.problem_slug) {
-          <a
-            [routerLink]="['/escenarios', s.problem_slug]"
-            class="card-feature animate-fadeInUp hover-lift block"
-          >
-            <div class="flex items-center justify-between mb-3">
-              <span class="font-mono text-xs text-moss">{{ s.problem_slug }}.pddl</span>
-              <span class="badge badge-active">Diseñado</span>
-            </div>
-            <h3 class="font-display text-lg text-forest font-semibold leading-tight">
-              {{ s.title }}
-            </h3>
 
-            <p class="text-sm text-evergreen mt-3 leading-relaxed">{{ s.description }}</p>
+      @if (loading()) {
+        <div class="feature-grid">
+          @for (i of [1, 2]; track i) {
+            <div class="skeleton" style="height: 240px; border-radius: 14px;"></div>
+          }
+        </div>
+      } @else {
+        <div class="feature-grid stagger-children">
+          @for (s of scenarios(); track s.problem_slug) {
+            <a
+              [routerLink]="['/escenarios', s.problem_slug]"
+              class="feature-card-v2 animate-fadeInUp"
+            >
+              <div class="flex items-center justify-between">
+                <div class="feature-card-v2__icon">🧪</div>
+                <span class="badge badge-active">Diseñado</span>
+              </div>
 
-            <div class="mt-4 flex flex-wrap gap-1">
-              @for (diff of s.differs_from_base; track diff) {
-                <span class="tag text-xs">{{ diff }}</span>
-              }
-            </div>
-          </a>
-        }
-      </div>
-    }
+              <div>
+                <div class="text-[11px] font-mono text-moss mb-1">{{ s.problem_slug }}.pddl</div>
+                <h3 class="feature-card-v2__title">{{ s.title }}</h3>
+              </div>
+
+              <p class="feature-card-v2__desc">{{ s.description }}</p>
+
+              <div class="flex flex-wrap gap-1.5">
+                @for (diff of s.differs_from_base; track diff) {
+                  <span class="token-pill">{{ diff }}</span>
+                }
+              </div>
+
+              <div class="feature-card-v2__meta">
+                <span>Ver detalle</span>
+                <span>→</span>
+              </div>
+            </a>
+          }
+        </div>
+      }
+    </section>
   `,
+  host: { class: 'block max-w-5xl mx-auto' },
 })
 export class ScenariosListComponent implements OnInit {
   private readonly api = inject(ApiService);

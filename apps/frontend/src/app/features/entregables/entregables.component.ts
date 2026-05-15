@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ApiService, PlanFileInfo, PddlFileInfo, CaptureInfo, EntregableInfo } from '../../core/api.service';
 
 interface EntregableRow {
@@ -10,127 +10,264 @@ interface EntregableRow {
   hash?: string;
 }
 
+const CRITERIO_COLOR: Record<string, 'blue' | 'green' | 'amber' | 'forest'> = {
+  C1: 'blue',
+  C2: 'green',
+  C3: 'amber',
+  C4: 'forest',
+};
+
 @Component({
   selector: 'app-entregables',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .entregables-table__head,
+      .entregables-table__row {
+        grid-template-columns: 64px 96px 1.4fr 1.5fr 1fr 100px;
+      }
+      @media (max-width: 900px) {
+        .entregables-table__head {
+          display: none;
+        }
+        .entregables-table__row {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+        .entregables-table__row > * {
+          font-size: 12px;
+        }
+      }
+
+      .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .filter-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 9999px;
+        background: #FFFFFF;
+        border: 1px solid var(--color-border);
+        font-size: 12px;
+        color: var(--color-text-secondary, #4A5C50);
+        cursor: pointer;
+        transition: all 150ms ease;
+      }
+      .filter-chip:hover {
+        border-color: var(--color-forest, #2E5A3C);
+      }
+      .filter-chip.is-active {
+        background: var(--color-forest, #2E5A3C);
+        border-color: var(--color-forest, #2E5A3C);
+        color: #FFFFFF;
+      }
+      .filter-chip__count {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 10.5px;
+        font-weight: 600;
+        padding: 1px 6px;
+        border-radius: 9999px;
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .filter-chip.is-active .filter-chip__count {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    `,
+  ],
   template: `
-    <header class="mb-8">
-      <h1 class="font-display text-3xl text-forest font-semibold">Entregables</h1>
-      <p class="text-sm text-pine mt-2 max-w-3xl">
-        Catálogo único de todos los archivos físicos que componen la entrega de
-        la Actividad 3. Cada fila lista su criterio de la rúbrica, su ubicación
-        en el repositorio y, cuando aplica, su hash SHA-256 para verificación
-        de autenticidad.
-      </p>
+    <header class="page-hero">
+      <div>
+        <span class="tag mb-3 inline-block">Catálogo único</span>
+        <h1 class="page-hero__title">Entregables</h1>
+        <p class="page-hero__lead">
+          Todos los archivos físicos que componen la entrega de la Actividad 3.
+          Cada fila indica su criterio de la rúbrica, ubicación en el repositorio
+          y hash SHA-256 cuando aplica.
+        </p>
+      </div>
+
+      <div class="page-hero__stats">
+        <div class="stat-card stat-card--accent">
+          <div class="stat-card__label">Total archivos</div>
+          <div class="stat-card__value">{{ rows().length }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Planes</div>
+          <div class="stat-card__value">{{ countByType('Plan') }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">PDDL</div>
+          <div class="stat-card__value">{{ countByType('PDDL') }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Figuras</div>
+          <div class="stat-card__value">{{ countByType('Figura') }}</div>
+        </div>
+      </div>
     </header>
 
     @if (loading()) {
-      <div class="skeleton" style="height: 320px;"></div>
+      <div class="skeleton mt-8" style="height: 320px; border-radius: 14px;"></div>
     } @else {
-      <!-- ZIP descargable -->
+      <!-- ZIP -->
       @let zip = entregableZip();
       @if (zip) {
-        <section class="card-section mb-6 bg-fern/5 border border-fern/30">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 w-12 h-12 rounded-lg bg-fern text-white flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+        <section class="page-section">
+          <div class="page-section__header">
+            <div class="page-section__num">⬇</div>
+            <div>
+              <h2 class="page-section__title">ZIP del entregable</h2>
+              <p class="page-section__lead">
+                Empaquetado único con PDDL, planes, capturas, reporte y figuras.
+              </p>
             </div>
-            <div class="flex-1">
-              <h2 class="font-display text-lg text-forest font-semibold">
-                ZIP del entregable
-              </h2>
-              <p class="text-sm text-pine mt-1">
-                Empaquetado único con los 4 PDDL del rover, los 4 planes de Delfi 1, capturas
-                por criterio, reporte y figuras.
+          </div>
+
+          <div class="split-grid">
+            <div class="step-card-v2">
+              <div class="step-card-v2__head">
+                <div class="step-card-v2__dot">📦</div>
+                <div class="step-card-v2__title">{{ zip.exists ? zip.filename : 'No generado' }}</div>
+              </div>
+              <div class="step-card-v2__body">
                 @if (zip.exists) {
                   Listo para descargar (alineado con la rúbrica de 3 criterios del profesor).
+                  <div class="mt-3 flex flex-wrap items-center gap-3">
+                    <a [href]="zip.download_url" class="btn btn-cta text-sm" download>
+                      Descargar
+                    </a>
+                    <span class="text-xs font-mono text-moss">
+                      {{ ((zip.size_bytes ?? 0) / 1024).toFixed(1) }} KB
+                    </span>
+                  </div>
                 } @else {
                   Aún no se ha generado. Corre
-                  <code class="font-mono text-xs">python tools/build_entregable_zip.py</code>.
+                  <code>python tools/build_entregable_zip.py</code>.
                 }
-              </p>
-              @if (zip.exists) {
-                <div class="mt-3 flex flex-wrap items-center gap-3">
-                  <a
-                    [href]="zip.download_url"
-                    class="btn-primary text-sm"
-                    download
-                  >
-                    Descargar {{ zip.filename }}
-                  </a>
-                  <span class="text-xs font-mono text-moss">
-                    {{ ((zip.size_bytes ?? 0) / 1024).toFixed(1) }} KB · SHA-256
-                    {{ (zip.sha256 ?? '').substring(0, 16) }}…
-                  </span>
+              </div>
+            </div>
+
+            <div class="info-grid">
+              <div class="info-cell info-cell--full">
+                <div class="info-cell__label">SHA-256</div>
+                <div class="info-cell__value text-xs">
+                  {{ zip.exists ? zip.sha256 : '—' }}
                 </div>
-              }
+              </div>
+              <div class="info-cell">
+                <div class="info-cell__label">Estado</div>
+                <div class="info-cell__value">{{ zip.exists ? '✓ Generado' : '✗ Pendiente' }}</div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell__label">Tamaño</div>
+                <div class="info-cell__value">{{ zip.exists ? (((zip.size_bytes ?? 0) / 1024).toFixed(1) + ' KB') : '—' }}</div>
+              </div>
             </div>
           </div>
         </section>
       }
 
-      <!-- Resumen por criterio -->
-      <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        @for (k of summary(); track k.criterio) {
-          <div class="card-section p-4">
-            <div class="text-[10px] font-mono text-moss">{{ k.criterio }}</div>
-            <div class="font-display text-2xl text-forest font-semibold mt-1">
-              {{ k.count }}
-            </div>
-            <div class="text-xs text-pine mt-1">{{ k.label }}</div>
+      <!-- distribución por criterio -->
+      <section class="page-section">
+        <div class="page-section__header">
+          <div class="page-section__num">Σ</div>
+          <div>
+            <h2 class="page-section__title">Resumen por criterio</h2>
+            <p class="page-section__lead">
+              Conteo de archivos asociados a cada criterio de la rúbrica.
+            </p>
           </div>
-        }
+        </div>
+
+        <div class="dist-grid">
+          @for (k of summary(); track k.criterio) {
+            <div class="dist-card" [class]="'dist-card dist-card--' + critColor(k.criterio)">
+              <div class="dist-card__bar"></div>
+              <div class="dist-card__verb">{{ k.criterio }}</div>
+              <div class="dist-card__count">{{ k.count }}</div>
+              <div class="dist-card__pct">{{ k.label }}</div>
+            </div>
+          }
+        </div>
       </section>
 
-      <!-- Tabla -->
-      <section class="card-section overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead class="text-[11px] font-mono text-moss uppercase">
-            <tr class="text-left border-b border-fog/60">
-              <th class="py-2 px-3">Criterio</th>
-              <th class="py-2 px-3">Tipo</th>
-              <th class="py-2 px-3">Nombre</th>
-              <th class="py-2 px-3">Detalle</th>
-              <th class="py-2 px-3">Ruta</th>
-              <th class="py-2 px-3">SHA-256</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (row of rows(); track row.ruta) {
-              <tr class="border-b border-fog/30 hover:bg-fog/30">
-                <td class="py-2 px-3">
-                  <span
-                    class="inline-block px-2 py-0.5 rounded text-[10px] font-mono"
-                    [class.bg-fern]="row.criterio !== '—'"
-                    [class.text-white]="row.criterio !== '—'"
-                    [class.bg-fog]="row.criterio === '—'"
-                    [class.text-moss]="row.criterio === '—'"
-                  >
-                    {{ row.criterio }}
-                  </span>
-                </td>
-                <td class="py-2 px-3 text-pine">{{ row.tipo }}</td>
-                <td class="py-2 px-3 font-mono text-forest">{{ row.nombre }}</td>
-                <td class="py-2 px-3 text-evergreen">{{ row.detalle }}</td>
-                <td class="py-2 px-3 font-mono text-[11px] text-moss">{{ row.ruta }}</td>
-                <td class="py-2 px-3 font-mono text-[10px] text-moss">
-                  {{ row.hash ? row.hash.substring(0, 12) + '…' : '—' }}
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </section>
+      <!-- catálogo completo -->
+      <section class="page-section">
+        <div class="page-section__header">
+          <div class="page-section__num">≡</div>
+          <div>
+            <h2 class="page-section__title">Catálogo completo</h2>
+            <p class="page-section__lead">
+              Filtra por criterio para enfocarte en una parte de la entrega.
+            </p>
+          </div>
+        </div>
 
-      <p class="text-xs text-moss mt-6">
-        Verificación de hashes:
-        <code class="font-mono text-pine">sha256sum entregables/planes/*.txt</code>
-      </p>
+        <div class="filter-bar">
+          <button class="filter-chip" [class.is-active]="filter() === 'all'" (click)="filter.set('all')">
+            Todos <span class="filter-chip__count">{{ rows().length }}</span>
+          </button>
+          <button class="filter-chip" [class.is-active]="filter() === 'C1'" (click)="filter.set('C1')">
+            C1 · Snake <span class="filter-chip__count">{{ countByCrit('C1') }}</span>
+          </button>
+          <button class="filter-chip" [class.is-active]="filter() === 'C2'" (click)="filter.set('C2')">
+            C2 · Rover <span class="filter-chip__count">{{ countByCrit('C2') }}</span>
+          </button>
+          <button class="filter-chip" [class.is-active]="filter() === 'C3'" (click)="filter.set('C3')">
+            C3 · Escenarios <span class="filter-chip__count">{{ countByCrit('C3') }}</span>
+          </button>
+          <button class="filter-chip" [class.is-active]="filter() === 'C4'" (click)="filter.set('C4')">
+            C4 · Reporte <span class="filter-chip__count">{{ countByCrit('C4') }}</span>
+          </button>
+        </div>
+
+        <div class="data-table">
+          <div class="data-table__head entregables-table__head">
+            <div>Criterio</div>
+            <div>Tipo</div>
+            <div>Nombre</div>
+            <div>Detalle</div>
+            <div>Ruta</div>
+            <div>SHA-256</div>
+          </div>
+          @for (row of filteredRows(); track row.ruta) {
+            <div
+              class="data-table__row entregables-table__row"
+              [class]="'data-table__row entregables-table__row row--' + critColor(row.criterio)"
+            >
+              <div>
+                <span class="verb-pill" [class]="'verb-pill verb-pill--' + critColor(row.criterio)">
+                  {{ row.criterio }}
+                </span>
+              </div>
+              <div class="text-xs text-pine">{{ row.tipo }}</div>
+              <div class="font-mono text-xs text-forest">{{ row.nombre }}</div>
+              <div class="text-xs text-evergreen">{{ row.detalle }}</div>
+              <div class="font-mono text-[11px] text-moss">{{ row.ruta }}</div>
+              <div class="font-mono text-[10px] text-moss">
+                {{ row.hash ? row.hash.substring(0, 12) + '…' : '—' }}
+              </div>
+            </div>
+          }
+          <div class="data-table__foot">
+            <span>Mostrando: <strong>{{ filteredRows().length }}</strong> de {{ rows().length }}</span>
+            <span>Verificación: <code class="font-mono">sha256sum entregables/planes/*.txt</code></span>
+          </div>
+        </div>
+      </section>
     }
   `,
+  host: { class: 'block max-w-6xl mx-auto' },
 })
 export class EntregablesComponent implements OnInit {
   private readonly api = inject(ApiService);
@@ -141,6 +278,24 @@ export class EntregablesComponent implements OnInit {
   protected readonly summary = signal<
     { criterio: string; count: number; label: string }[]
   >([]);
+  protected readonly filter = signal<'all' | 'C1' | 'C2' | 'C3' | 'C4'>('all');
+
+  protected readonly filteredRows = computed(() => {
+    const f = this.filter();
+    return f === 'all' ? this.rows() : this.rows().filter((r) => r.criterio === f);
+  });
+
+  protected countByType(t: EntregableRow['tipo']): number {
+    return this.rows().filter((r) => r.tipo === t).length;
+  }
+
+  protected countByCrit(c: 'C1' | 'C2' | 'C3' | 'C4'): number {
+    return this.rows().filter((r) => r.criterio === c).length;
+  }
+
+  protected critColor(c: string): 'blue' | 'green' | 'amber' | 'forest' {
+    return CRITERIO_COLOR[c] ?? 'forest';
+  }
 
   ngOnInit(): void {
     Promise.all([
@@ -153,7 +308,6 @@ export class EntregablesComponent implements OnInit {
         if (zip) this.entregableZip.set(zip);
         const all: EntregableRow[] = [];
 
-        // PDDL: domain + 3 problems + snake
         (pddls ?? []).forEach((p: PddlFileInfo) => {
           const isSnake = p.slug.startsWith('snake');
           const isDomain = p.kind === 'domain';
@@ -173,7 +327,6 @@ export class EntregablesComponent implements OnInit {
           });
         });
 
-        // Planes
         (plans ?? []).forEach((plan: PlanFileInfo) => {
           const isSnake = plan.slug.startsWith('snake');
           const idx = plan.slug.split('-').pop();
@@ -187,7 +340,6 @@ export class EntregablesComponent implements OnInit {
           });
         });
 
-        // Capturas
         (capturas ?? []).forEach((c: CaptureInfo) => {
           const crit = c.criterio.toUpperCase() as EntregableRow['criterio'];
           all.push({
@@ -199,7 +351,6 @@ export class EntregablesComponent implements OnInit {
           });
         });
 
-        // Figuras (estáticas, conocidas)
         const figuras: { name: string; criterio: EntregableRow['criterio']; detalle: string }[] = [
           { name: 'figura-01-singularity-snake.png', criterio: 'C1', detalle: 'Comando IPC2018 ejecutando Snake' },
           { name: 'figura-02-snake-plan.png', criterio: 'C1', detalle: 'Plan obtenido por Delfi 1 (24 acciones)' },
@@ -220,7 +371,6 @@ export class EntregablesComponent implements OnInit {
           }),
         );
 
-        // Reporte
         all.push({
           criterio: 'C4',
           tipo: 'Reporte',
@@ -238,7 +388,6 @@ export class EntregablesComponent implements OnInit {
 
         this.rows.set(all);
 
-        // Resumen
         const byCrit: Record<string, { count: number; label: string }> = {
           C1: { count: 0, label: 'Snake IPC2018' },
           C2: { count: 0, label: 'Rover base' },

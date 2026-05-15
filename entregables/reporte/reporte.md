@@ -17,9 +17,7 @@ Universidad Internacional de La Rioja (UNIR)
 Maestría en Inteligencia Artificial — Primer Semestre
 Curso: Razonamiento y planificación automática
 
-Matrícula: __________________
-
-Fecha: 12 de mayo de 2026
+Fecha: 15 de mayo de 2026
 
 ---
 
